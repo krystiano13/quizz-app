@@ -695,6 +695,11 @@ body {
   background-color: rgb(24 24 27 / var(--tw-bg-opacity));
 }
 
+.bg-rose-900 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(136 19 55 / var(--tw-bg-opacity));
+}
+
 .p-6 {
   padding: 1.5rem;
 }
@@ -973,6 +978,16 @@ body {
 :is(:where(.dark) .dark\:bg-zinc-800) {
   --tw-bg-opacity: 1;
   background-color: rgb(39 39 42 / var(--tw-bg-opacity));
+}
+
+:is(:where(.dark) .dark\:bg-rose-700) {
+  --tw-bg-opacity: 1;
+  background-color: rgb(190 18 60 / var(--tw-bg-opacity));
+}
+
+:is(:where(.dark) .dark\:bg-rose-50) {
+  --tw-bg-opacity: 1;
+  background-color: rgb(255 241 242 / var(--tw-bg-opacity));
 }
 
 :is(:where(.dark) .dark\:text-slate-400) {

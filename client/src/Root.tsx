@@ -1,20 +1,15 @@
 import React from 'react';
-import { Input } from "./components/ui/input";
-import {
-    Card,
-    CardContent,
-    CardDescription,
-    CardFooter,
-    CardHeader,
-    CardTitle,
-} from "./components/ui/card";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+
+//components
+import { Home } from './views/Home';
+
 export function Root() {
     return (
-        <>
-            <Card>
-                <h1 className="text-2xl text-center">Quiz App</h1>
-                <Input/>
-            </Card>
-        </>
+        <BrowserRouter>
+            <Routes>
+                <Route path='/' element={<Home />} />
+            </Routes>
+        </BrowserRouter>
     )
 }
