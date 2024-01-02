@@ -14,7 +14,7 @@
     "noImplicitAny": true,
     "strictNullChecks": true,
     "allowSyntheticDefaultImports": true,
-    "baseUrl": ".",
+    "baseUrl": "./src/",
     "paths": {
       "@/*": ["./*"]
     }
