@@ -27,4 +27,25 @@ class Answer extends Model
      */
     public $incrementing = true;
 
+    /**
+     * Fillable Items
+     * @var string[]
+     */
+    protected $fillable = [
+        'question',
+        'true_answer',
+        'answer_a',
+        'answer_b',
+        'answer_c',
+        'answer_d',
+        'quizz_id',
+    ];
+
+    /**
+     * Hidden Items
+     * @var string[]
+     */
+    protected $hidden = [
+        'updated_at'
+    ];
 }
