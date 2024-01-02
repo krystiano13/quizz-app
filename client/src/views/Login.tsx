@@ -3,7 +3,7 @@ import { Card } from '../components/ui/card';
 import { Input } from '../components/ui/input';
 import { Button } from '../components/ui/button';
 
-export function Login() {
+export default function Login() {
     return (
         <main className="theme-rose w-[100vw] h-[100vh] flex justify-center items-center">
             <Card className="bg-card sm:w-[70%] md:w-[30%] lg:w-[20%]">
