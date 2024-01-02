@@ -589,6 +589,22 @@ body {
   --tw-backdrop-sepia:  ;
 }
 
+.absolute {
+  position: absolute;
+}
+
+.relative {
+  position: relative;
+}
+
+.mb-1 {
+  margin-bottom: 0.25rem;
+}
+
+.mt-1 {
+  margin-top: 0.25rem;
+}
+
 .flex {
   display: flex;
 }
@@ -609,12 +625,44 @@ body {
   height: 2.25rem;
 }
 
+.h-\[100vh\] {
+  height: 100vh;
+}
+
+.h-\[20vh\] {
+  height: 20vh;
+}
+
+.h-full {
+  height: 100%;
+}
+
 .w-full {
   width: 100%;
 }
 
 .w-10 {
   width: 2.5rem;
+}
+
+.w-\[100vw\] {
+  width: 100vw;
+}
+
+.w-\[20vh\] {
+  width: 20vh;
+}
+
+.w-60 {
+  width: 15rem;
+}
+
+.w-\[80\%\] {
+  width: 80%;
+}
+
+.w-\[60\%\] {
+  width: 60%;
 }
 
 .flex-col {
@@ -702,6 +750,10 @@ body {
 
 .p-6 {
   padding: 1.5rem;
+}
+
+.p-3 {
+  padding: 0.75rem;
 }
 
 .px-3 {
@@ -943,6 +995,18 @@ body {
 
 .disabled\:opacity-50:disabled {
   opacity: 0.5;
+}
+
+@media (min-width: 768px) {
+  .md\:w-\[70\%\] {
+    width: 70%;
+  }
+}
+
+@media (min-width: 1024px) {
+  .lg\:w-\[60\%\] {
+    width: 60%;
+  }
 }
 
 :is(:where(.dark) .dark\:border-slate-800) {
