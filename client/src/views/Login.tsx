@@ -5,7 +5,7 @@ import { Button } from '../components/ui/button';
 
 export function Login() {
     return (
-        <main className="w-[100vw] h-[100vh] flex justify-center items-center">
+        <main className="theme-rose w-[100vw] h-[100vh] flex justify-center items-center">
             <Card className="sm:w-[70%] md:w-[30%] lg:w-[20%]">
                 <form className="w-full pt-20 pb-20 pl-6 pr-6 flex flex-col items-center">
                     <Input className="mt-4 mb-4 w-[80%]" type="text" placeholder="username" name="name" required/>
