@@ -29,4 +29,12 @@ class QuizzController extends Controller
             'result' => $result
         ], 200);
     }
+
+    public function getLatest() {
+        $result = Quizz::latest() -> take(10) -> get();
+        return response([
+            'status' => true,
+            'result' => $result
+        ], 200);
+    }
 }
