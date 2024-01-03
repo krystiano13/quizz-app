@@ -16,6 +16,26 @@ class AnswerController extends Controller
         ], 200);
     }
 
+    public function deleteQuestion(Request $req) {
+        $validation = Validator::make($req -> all(), [
+            'id' => 'required'
+        ]);
+
+        if($validation -> fails()) {
+            return response([
+                'status' => false,
+                'errors' => $validation -> errors()
+            ], 403);
+        }
+
+        Answer::where('id', $req -> get('id')) -> delete();
+
+        return response([
+            'status' => true,
+            'message' => 'question deleted'
+        ], 200);
+    }
+
     public function addQuestion(Request $req) {
         $validation = Validator::make($req -> all(), [
             'answer_a' => 'required',
