@@ -11,3 +11,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 //Quizz API routes
 Route::get('/quizz/latest', [QuizzController::class, 'getLatest']);
 Route::post('/quizz/search',[QuizzController::class, 'search']);
+Route::post('/quizz/delete/{id}', [QuizzController::class, 'deleteQuizz']);
