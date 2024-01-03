@@ -17,3 +17,4 @@ Route::post('/quizz/edit/{id}', [QuizzController::class, 'editQuizz']);
 
 //Questions API routes
 Route::get('/question/all/{quizzId}', [AnswerController::class, 'getAllQuestions']);
+Route::post('/question/create', [AnswerController::class, 'addQuestion']);
