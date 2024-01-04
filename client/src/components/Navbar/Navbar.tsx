@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import {
     Menubar,
@@ -10,6 +10,8 @@ import {
 } from "../ui/menubar"
 
 export function Navbar() {
+    const [isLogged, setIsLogged] = useState<boolean>(false);
+    const [username, setUsername] = useState<string>("Admin");
     return (
        <nav className="w-[100vw] h-[5rem] flex justify-between items-center p-3 fixed">
            <h1 id="logo" className="md:text-2xl font-bold">
@@ -37,14 +39,30 @@ export function Navbar() {
            </Menubar>
            <Menubar>
                <MenubarMenu>
-                   <MenubarTrigger className="text-xs md:text-base">Account</MenubarTrigger>
+                   <MenubarTrigger className="text-xs md:text-base">
+                       {
+                           isLogged ? username : "Account"
+                       }
+                   </MenubarTrigger>
                    <MenubarContent>
-                       <NavLink to='/login'>
-                           <MenubarItem className="text-xs md:text-base">Log In</MenubarItem>
-                       </NavLink>
-                       <NavLink to='/register'>
-                           <MenubarItem className="text-xs md:text-base">Create</MenubarItem>
-                       </NavLink>
+                       {
+                           !isLogged &&
+                           <>
+                               <NavLink to='/login'>
+                                   <MenubarItem className="text-xs md:text-base">Log In</MenubarItem>
+                               </NavLink>
+                               <NavLink to='/register'>
+                                   <MenubarItem className="text-xs md:text-base">Create</MenubarItem>
+                               </NavLink>
+                           </>
+                       }
+                       {
+                           isLogged &&
+                           <>
+                               <MenubarItem className="text-xs md:text-base">Profile</MenubarItem>
+                               <MenubarItem className="text-xs md:text-base">Log Out</MenubarItem>
+                           </>
+                       }
                    </MenubarContent>
                </MenubarMenu>
            </Menubar>
