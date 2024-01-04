@@ -1,52 +1,45 @@
 import React from 'react';
 import {
     Menubar,
-    MenubarCheckboxItem,
     MenubarContent,
     MenubarItem,
     MenubarMenu,
-    MenubarRadioGroup,
-    MenubarRadioItem,
     MenubarSeparator,
-    MenubarShortcut,
-    MenubarSub,
-    MenubarSubContent,
-    MenubarSubTrigger,
     MenubarTrigger,
 } from "../ui/menubar"
 
 export function Navbar() {
     return (
        <nav className="w-[100vw] h-[5rem] flex justify-between items-center p-3">
-           <h1 id="logo" className="text-2xl font-bold">
+           <h1 id="logo" className="md:text-2xl font-bold">
                Quizz App
            </h1>
            <Menubar>
              <MenubarMenu>
-                 <MenubarTrigger>Discover</MenubarTrigger>
+                 <MenubarTrigger className="text-xs md:text-base">Discover</MenubarTrigger>
                  <MenubarContent>
-                     <MenubarItem>Latest</MenubarItem>
+                     <MenubarItem className="text-xs md:text-base">Latest</MenubarItem>
                      <MenubarSeparator />
-                     <MenubarItem>Highest Rate</MenubarItem>
+                     <MenubarItem className="text-xs md:text-base">Highest Rate</MenubarItem>
                      <MenubarSeparator />
-                     <MenubarItem>Search Specific</MenubarItem>
+                     <MenubarItem className="text-xs md:text-base">Search Specific</MenubarItem>
                  </MenubarContent>
              </MenubarMenu>
                <MenubarMenu>
-                   <MenubarTrigger>Your Quizzes</MenubarTrigger>
+                   <MenubarTrigger className="text-xs md:text-base">Your Quizzes</MenubarTrigger>
                    <MenubarContent>
-                       <MenubarItem>Create</MenubarItem>
+                       <MenubarItem className="text-xs md:text-base">Create</MenubarItem>
                        <MenubarSeparator />
-                       <MenubarItem>Show</MenubarItem>
+                       <MenubarItem className="text-xs md:text-base">Show</MenubarItem>
                    </MenubarContent>
                </MenubarMenu>
            </Menubar>
            <Menubar>
                <MenubarMenu>
-                   <MenubarTrigger>Account</MenubarTrigger>
+                   <MenubarTrigger className="text-xs md:text-base">Account</MenubarTrigger>
                    <MenubarContent>
-                       <MenubarItem>Log In</MenubarItem>
-                       <MenubarItem>Create</MenubarItem>
+                       <MenubarItem className="text-xs md:text-base">Log In</MenubarItem>
+                       <MenubarItem className="text-xs md:text-base">Create</MenubarItem>
                    </MenubarContent>
                </MenubarMenu>
            </Menubar>
