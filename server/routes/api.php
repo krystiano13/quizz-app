@@ -12,6 +12,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 //Auth
 Route::post('/auth/register', [UserController::class, 'register']);
+Route::post('/auth/login', [UserController::class, 'login']);
 
 //Quizz API routes
 Route::get('/quizz/latest', [QuizzController::class, 'getLatest']);
