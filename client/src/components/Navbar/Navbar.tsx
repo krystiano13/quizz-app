@@ -41,6 +41,15 @@ export function Navbar() {
                    </MenubarContent>
                </MenubarMenu>
            </Menubar>
+           <Menubar>
+               <MenubarMenu>
+                   <MenubarTrigger>Account</MenubarTrigger>
+                   <MenubarContent>
+                       <MenubarItem>Log In</MenubarItem>
+                       <MenubarItem>Create</MenubarItem>
+                   </MenubarContent>
+               </MenubarMenu>
+           </Menubar>
        </nav>
     )
 }
