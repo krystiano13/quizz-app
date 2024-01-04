@@ -10,7 +10,7 @@ import {
 
 export function Navbar() {
     return (
-       <nav className="w-[100vw] h-[5rem] flex justify-between items-center p-3">
+       <nav className="w-[100vw] h-[5rem] flex justify-between items-center p-3 fixed">
            <h1 id="logo" className="md:text-2xl font-bold">
                Quizz App
            </h1>

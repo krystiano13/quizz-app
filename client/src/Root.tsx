@@ -8,10 +8,12 @@ const Register = lazy(() => import('./views/Register'));
 
 //components
 import { Loader } from './components/Loader/Loader';
+import { Navbar } from './components/Navbar/Navbar';
 
 export function Root() {
     return (
         <BrowserRouter>
+            <Navbar />
             <Routes>
                 <Route path='/' element={<Home />} />
                 <Route path='/login' element={<Suspense fallback={<Loader />}>
