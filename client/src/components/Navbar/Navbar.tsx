@@ -14,12 +14,14 @@ export function Navbar() {
     const [username, setUsername] = useState<string>("Admin");
     return (
        <nav className="w-[100vw] h-[5rem] flex justify-between items-center p-3 fixed">
-           <h1 id="logo" className="md:text-2xl font-bold">
-               Quizz App
-           </h1>
+           <NavLink to="/">
+               <h1 id="logo" className="md:text-2xl font-bold">
+                   Quizz App
+               </h1>
+           </NavLink>
            <Menubar>
-             <MenubarMenu>
-                 <MenubarTrigger className="text-xs md:text-base">Discover</MenubarTrigger>
+               <MenubarMenu>
+                   <MenubarTrigger className="text-xs md:text-base">Discover</MenubarTrigger>
                  <MenubarContent>
                      <MenubarItem className="text-xs md:text-base">Latest</MenubarItem>
                      <MenubarSeparator />
