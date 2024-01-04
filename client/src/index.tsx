@@ -4,7 +4,7 @@ import { Root } from "./Root";
 import { ThemeProvider } from "./components/theme-provider"
 
 import './global.css';
-import './output.css';
+import './output.min.css';
 
 const rootDiv: HTMLDivElement | null = document.querySelector('#root');
 const App = createRoot(rootDiv as HTMLDivElement);
