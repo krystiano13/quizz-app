@@ -1427,6 +1427,10 @@ body {
     width: auto;
   }
 
+  .md\:w-\[35\%\] {
+    width: 35%;
+  }
+
   .md\:text-2xl {
     font-size: 1.5rem;
     line-height: 2rem;
@@ -1455,6 +1459,16 @@ body {
 
 @media (min-width: 1024px) {
   .lg\:w-\[20\%\] {
+    width: 20%;
+  }
+
+  .lg\:w-\[28\%\] {
+    width: 28%;
+  }
+}
+
+@media (min-width: 1280px) {
+  .xl\:w-\[20\%\] {
     width: 20%;
   }
 }

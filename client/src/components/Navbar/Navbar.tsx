@@ -1,4 +1,5 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 import {
     Menubar,
     MenubarContent,
@@ -38,8 +39,12 @@ export function Navbar() {
                <MenubarMenu>
                    <MenubarTrigger className="text-xs md:text-base">Account</MenubarTrigger>
                    <MenubarContent>
-                       <MenubarItem className="text-xs md:text-base">Log In</MenubarItem>
-                       <MenubarItem className="text-xs md:text-base">Create</MenubarItem>
+                       <NavLink to='/login'>
+                           <MenubarItem className="text-xs md:text-base">Log In</MenubarItem>
+                       </NavLink>
+                       <NavLink to='/register'>
+                           <MenubarItem className="text-xs md:text-base">Create</MenubarItem>
+                       </NavLink>
                    </MenubarContent>
                </MenubarMenu>
            </Menubar>
