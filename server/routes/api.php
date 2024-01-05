@@ -13,6 +13,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 //Profile
 Route::get('/profile/{username}', [ProfileController::class, 'get']);
+Route::post('/profile/edit', [ProfileController::class, 'editDescription']);
 
 //Auth
 Route::post('/auth/register', [UserController::class, 'register']);
