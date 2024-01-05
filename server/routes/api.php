@@ -5,10 +5,14 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\QuizzController;
 use App\Http\Controllers\AnswerController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ProfileController;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+//Profile
+Route::get('/profile/{username}', [ProfileController::class, 'get']);
 
 //Auth
 Route::post('/auth/register', [UserController::class, 'register']);
