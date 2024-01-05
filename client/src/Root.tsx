@@ -5,6 +5,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Home } from './views/Home';
 const Login = lazy(() => import('./views/Login'));
 const Register = lazy(() => import('./views/Register'));
+const Profile = lazy(() => import('./views/Profile'));
 
 //components
 import { Loader } from './components/Loader/Loader';
@@ -21,6 +22,9 @@ export function Root() {
                 </Suspense>} />
                 <Route path='/register' element={<Suspense fallback={<Loader />}>
                     <Register />
+                </Suspense>} />
+                <Route path='/profile' element={<Suspense fallback={<Loader />}>
+                    <Profile />
                 </Suspense>} />
             </Routes>
         </BrowserRouter>
