@@ -9,6 +9,15 @@ use App\Models\Answer;
 
 class QuizzController extends Controller
 {
+    public function getHighestRated(Request $req) {
+        $result = Quizz::orderByRaw('rating_sum / rates_count DESC') -> take(10) -> get();
+
+        return response([
+            'status' => true,
+            'result' => $result
+        ], 200);
+    }
+
     public function search(Request $req) {
         $validation = Validator::make($req -> all(),[
             'search' => 'required'
