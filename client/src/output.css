@@ -727,6 +727,10 @@ body {
   width: 100%;
 }
 
+.w-\[75\%\] {
+  width: 75%;
+}
+
 .min-w-\[12rem\] {
   min-width: 12rem;
 }
@@ -1240,6 +1244,18 @@ body {
     width: 35%;
   }
 
+  .md\:w-\[50\%\] {
+    width: 50%;
+  }
+
+  .md\:w-\[40\%\] {
+    width: 40%;
+  }
+
+  .md\:w-\[45\%\] {
+    width: 45%;
+  }
+
   .md\:text-2xl {
     font-size: 1.5rem;
     line-height: 2rem;
@@ -1255,11 +1271,35 @@ body {
   .lg\:w-\[28\%\] {
     width: 28%;
   }
+
+  .lg\:w-\[40\%\] {
+    width: 40%;
+  }
+
+  .lg\:w-\[30\%\] {
+    width: 30%;
+  }
+
+  .lg\:w-\[35\%\] {
+    width: 35%;
+  }
 }
 
 @media (min-width: 1280px) {
   .xl\:w-\[22\%\] {
     width: 22%;
+  }
+
+  .xl\:w-\[32\%\] {
+    width: 32%;
+  }
+
+  .xl\:w-\[25\%\] {
+    width: 25%;
+  }
+
+  .xl\:w-\[30\%\] {
+    width: 30%;
   }
 }
 

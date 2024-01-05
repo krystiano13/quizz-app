@@ -11,7 +11,7 @@ import {
 export default function Profile() {
     return (
         <main className="form-anim theme-rose w-[100vw] h-[100vh] flex justify-center items-center">
-            <Card className="p-6 flex flex-col w-[70%] md:w-[35%] lg:w-[28%] xl:w-[22%]">
+            <Card className="p-6 flex flex-col w-[75%] md:w-[45%] lg:w-[35%] xl:w-[30%]">
                 <Avatar className="ml-3">
                     <AvatarFallback>Ad</AvatarFallback>
                 </Avatar>
@@ -22,7 +22,12 @@ export default function Profile() {
                     </CardDescription>
                 </CardHeader>
                 <CardContent>
-
+                    <ul>
+                        <li>Quizzes Made: 12</li>
+                        <li>Quizzes Solved: 40</li>
+                        <li>Quizzes Rated: 25</li>
+                        <li>Average Quizzes Ratings: 4.23</li>
+                    </ul>
                 </CardContent>
             </Card>
         </main>
