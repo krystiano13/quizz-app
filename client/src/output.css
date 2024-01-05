@@ -639,6 +639,10 @@ body {
   display: inline-flex;
 }
 
+.aspect-square {
+  aspect-ratio: 1 / 1;
+}
+
 .h-10 {
   height: 2.5rem;
 }
@@ -677,6 +681,10 @@ body {
 
 .h-px {
   height: 1px;
+}
+
+.h-full {
+  height: 100%;
 }
 
 .w-10 {
@@ -721,6 +729,10 @@ body {
 
 .min-w-\[8rem\] {
   min-width: 8rem;
+}
+
+.shrink-0 {
+  flex-shrink: 0;
 }
 
 .cursor-default {
@@ -784,6 +796,10 @@ body {
 
 .rounded-sm {
   border-radius: calc(var(--radius) - 4px);
+}
+
+.rounded-full {
+  border-radius: 9999px;
 }
 
 .border {
