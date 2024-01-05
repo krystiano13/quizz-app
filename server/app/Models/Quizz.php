@@ -33,7 +33,9 @@ class Quizz extends Model
      */
     protected $fillable = [
         'author',
-        'title'
+        'title',
+        'rating_sum',
+        'rates_count'
     ];
 
     /**
