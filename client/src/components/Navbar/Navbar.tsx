@@ -27,7 +27,9 @@ export function Navbar() {
                      <MenubarSeparator />
                      <MenubarItem className="text-xs md:text-base">Highest Rate</MenubarItem>
                      <MenubarSeparator />
-                     <MenubarItem className="text-xs md:text-base">Search Specific</MenubarItem>
+                     <NavLink to='/search'>
+                         <MenubarItem className="text-xs md:text-base">Search Specific</MenubarItem>
+                     </NavLink>
                  </MenubarContent>
              </MenubarMenu>
                <MenubarMenu>
