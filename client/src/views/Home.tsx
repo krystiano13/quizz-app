@@ -4,8 +4,18 @@ import { useSearchParams } from "react-router-dom";
 //components
 import { QuizzCard } from "../components/Home/QuizzCard";
 
+interface Quizz {
+    author: string,
+    created_at: string | null,
+    id: number,
+    rates_count: number,
+    rating_sum: number,
+    title: string
+}
+
 export function Home() {
     const [searchParams, setSearchParams] = useSearchParams();
+    const [quizzes, setQuizzes] = useState<Quizz[]>([]);
 
     useEffect(() => {
         let url:string = "";
