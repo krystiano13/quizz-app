@@ -6,6 +6,7 @@ import { Home } from './views/Home';
 const Login = lazy(() => import('./views/Login'));
 const Register = lazy(() => import('./views/Register'));
 const Profile = lazy(() => import('./views/Profile'));
+const Search = lazy(() => import('./views/Search'));
 
 //components
 import { Loader } from './components/Loader/Loader';
@@ -25,6 +26,9 @@ export function Root() {
                 </Suspense>} />
                 <Route path='/profile' element={<Suspense fallback={<Loader />}>
                     <Profile />
+                </Suspense>} />
+                <Route path='/search' element={<Suspense fallback={<Loader />}>
+                    <Search />
                 </Suspense>} />
             </Routes>
         </BrowserRouter>
