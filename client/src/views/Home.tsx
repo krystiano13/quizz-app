@@ -49,7 +49,7 @@ export function Home() {
 
     return (
        <main className="flex justify-center items-center h-[100vh]">
-           <QuizzCard />
+           <QuizzCard title="Test" rate={6.9} />
        </main>
     )
 }
