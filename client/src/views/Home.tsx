@@ -43,7 +43,7 @@ export function Home() {
             })
                 .then(res => res.json())
                 .then(data => {
-                    console.log(data);
+                    setQuizzes(prev => data.result);
                 })
         }
         else {
@@ -52,14 +52,22 @@ export function Home() {
             })
                 .then(res => res.json())
                 .then(data => {
-                    console.log(data);
+                    setQuizzes(prev => data.result);
                 })
         }
     }, [searchParams]);
 
     return (
-       <main className="flex justify-center items-center h-[100vh]">
-           <QuizzCard title="Test" rate={6.9} />
+       <main className="flex flex-wrap content-start h-[100vh] gap-3 pt-[5rem] pb-3 pl-3 pr-3">
+           {
+               quizzes.map(item => (
+                   <QuizzCard
+                       author={item.author}
+                       title={item.title}
+                       rate={(item.rating_sum / item.rates_count).toFixed(2)}
+                   />
+               ))
+           }
        </main>
     )
 }
