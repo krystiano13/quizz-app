@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useSearchParams } from "react-router-dom";
 
+//components
+import { QuizzCard } from "../components/Home/QuizzCard";
+
 export function Home() {
     const [searchParams, setSearchParams] = useSearchParams();
 
@@ -45,6 +48,8 @@ export function Home() {
     }, [searchParams]);
 
     return (
-       <></>
+       <main className="flex justify-center items-center h-[100vh]">
+           <QuizzCard />
+       </main>
     )
 }
