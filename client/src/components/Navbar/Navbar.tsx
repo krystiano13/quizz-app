@@ -23,9 +23,13 @@ export function Navbar() {
                <MenubarMenu>
                    <MenubarTrigger className="text-xs md:text-base">Discover</MenubarTrigger>
                  <MenubarContent>
-                     <MenubarItem className="text-xs md:text-base">Latest</MenubarItem>
+                     <NavLink to='/'>
+                         <MenubarItem className="text-xs md:text-base">Latest</MenubarItem>
+                     </NavLink>
                      <MenubarSeparator />
-                     <MenubarItem className="text-xs md:text-base">Highest Rate</MenubarItem>
+                     <NavLink to='/?highestRated=yes'>
+                         <MenubarItem className="text-xs md:text-base">Highest Rate</MenubarItem>
+                     </NavLink>
                      <MenubarSeparator />
                      <NavLink to='/search'>
                          <MenubarItem className="text-xs md:text-base">Search Specific</MenubarItem>
