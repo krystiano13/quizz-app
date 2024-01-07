@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Cookies from 'universal-cookie';
 import { NavLink } from 'react-router-dom';
 import {
     Menubar,
@@ -11,10 +12,18 @@ import {
 
 interface Props {
     isLogged: boolean,
-    username: string
+    username: string,
+    checkLogin: () => void
 }
 
-export const Navbar:React.FC<Props> = ({ isLogged, username }) => {
+export const Navbar:React.FC<Props> = ({ isLogged, username, checkLogin }) => {
+    function logout() {
+        const cookies = new Cookies();
+        cookies.remove("quizzapp_token");
+        cookies.remove("quizzapp_username");
+        checkLogin();
+    }
+
     return (
        <nav className="w-[100vw] h-[5rem] flex justify-between items-center p-3 fixed">
            <NavLink to="/">
@@ -76,7 +85,7 @@ export const Navbar:React.FC<Props> = ({ isLogged, username }) => {
                            isLogged &&
                            <>
                                <MenubarItem className="text-xs md:text-base">Profile</MenubarItem>
-                               <MenubarItem className="text-xs md:text-base">Log Out</MenubarItem>
+                               <MenubarItem onClick={logout} className="text-xs md:text-base">Log Out</MenubarItem>
                            </>
                        }
                    </MenubarContent>

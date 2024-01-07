@@ -35,7 +35,7 @@ export function Root() {
 
     return (
         <BrowserRouter>
-            <Navbar isLogged={isLogged} username={username} />
+            <Navbar isLogged={isLogged} username={username} checkLogin={checkLogin} />
             <Routes>
                 <Route path='/' element={<Home />} />
                 <Route path='/login' element={<Suspense fallback={<Loader />}>
