@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import {
     Menubar,
@@ -8,10 +8,19 @@ import {
     MenubarSeparator,
     MenubarTrigger,
 } from "../ui/menubar"
+import Cookies from "universal-cookie";
 
 export function Navbar() {
     const [isLogged, setIsLogged] = useState<boolean>(false);
     const [username, setUsername] = useState<string>("Admin");
+
+    useEffect(() => {
+        const cookies = new Cookies();
+        if(cookies.get('token') === undefined) {
+            setIsLogged(false);
+        }
+    }, []);
+
     return (
        <nav className="w-[100vw] h-[5rem] flex justify-between items-center p-3 fixed">
            <NavLink to="/">
@@ -39,9 +48,14 @@ export function Navbar() {
                <MenubarMenu>
                    <MenubarTrigger className="text-xs md:text-base">Your Quizzes</MenubarTrigger>
                    <MenubarContent>
-                       <MenubarItem className="text-xs md:text-base">Create</MenubarItem>
-                       <MenubarSeparator />
-                       <MenubarItem className="text-xs md:text-base">Show</MenubarItem>
+                       {
+                           isLogged &&
+                           <>
+                               <MenubarItem className="text-xs md:text-base">Create</MenubarItem>
+                               <MenubarSeparator />
+                               <MenubarItem className="text-xs md:text-base">Show</MenubarItem>
+                           </>
+                       }
                    </MenubarContent>
                </MenubarMenu>
            </Menubar>
