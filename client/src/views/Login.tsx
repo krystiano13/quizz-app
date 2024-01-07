@@ -1,7 +1,10 @@
 import React from 'react';
+import Cookies from "universal-cookie";
+
 
 //hooks
 import { useToast } from "../components/ui/use-toast";
+import { useNavigate } from "react-router";
 
 //components
 import { Card } from '../components/ui/card';
@@ -10,6 +13,7 @@ import { Button } from '../components/ui/button';
 
 export default function Login() {
     const { toast } = useToast();
+    const navigate = useNavigate();
 
     async function handleSubmit(e:React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
@@ -26,6 +30,20 @@ export default function Login() {
                         title: "Error",
                         description: "Wrong Credentials"
                     });
+                }
+                else {
+                    const cookies = new Cookies();
+                    const today = new Date();
+
+                    cookies.set('quizzapp_token',data.token, {
+                        expires: new Date(today.getTime() + 86400000)
+                    });
+
+                    cookies.set('quizzapp_username',data.name, {
+                        expires: new Date(today.getTime() + 86400000)
+                    });
+
+                    navigate('/');
                 }
             })
     }
