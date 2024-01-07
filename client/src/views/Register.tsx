@@ -51,7 +51,7 @@ export default function Register() {
                                    required/>
                             <Input className="mt-4 mb-4 w-[80%]" type="password" placeholder="repeat password" name="password_confirmation"
                                    required/>
-                            <Button className="mt-4 mb-4 w-[80%]" type="submit">Log In</Button>
+                            <Button className="mt-4 mb-4 w-[80%]" type="submit">Register</Button>
                         </>
                     }
                     {
