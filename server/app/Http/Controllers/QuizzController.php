@@ -47,6 +47,14 @@ class QuizzController extends Controller
         ], 200);
     }
 
+    public function getUsersQuizzes(string $username) {
+        $result = Quizz::where('author', $username) -> get();
+        return response([
+            'status' => true,
+            'result' => $result
+        ], 200);
+    }
+
     public function editQuizz(int $id, Request $req) {
         $validation = Validator::make($req -> all(), [
             'title' => 'required',

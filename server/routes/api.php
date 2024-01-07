@@ -22,6 +22,7 @@ Route::post('/auth/login', [UserController::class, 'login']);
 //Quizz API routes
 Route::get('/quizz/latest', [QuizzController::class, 'getLatest']);
 Route::get('/quizz/highestRated', [QuizzController::class, 'getHighestRated']);
+Route::get('/quizz/user/{username}', [QuizzController::class, 'getUsersQuizzes']);
 Route::post('/quizz/search',[QuizzController::class, 'search']);
 Route::post('/quizz/delete/{id}', [QuizzController::class, 'deleteQuizz']);
 Route::post('/quizz/edit/{id}', [QuizzController::class, 'editQuizz']);
