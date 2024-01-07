@@ -1,5 +1,6 @@
-import React, { lazy, Suspense } from 'react';
+import React, {lazy, Suspense, useState, useEffect} from 'react';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Cookies from 'universal-cookie';
 
 //views
 import { Home } from './views/Home';
@@ -13,13 +14,32 @@ import { Loader } from './components/Loader/Loader';
 import { Navbar } from './components/Navbar/Navbar';
 
 export function Root() {
+    const [isLogged, setIsLogged] = useState<boolean>(false);
+    const [username, setUsername] = useState<string>("Admin");
+
+    function checkLogin() {
+        const cookies = new Cookies();
+
+        if(cookies.get('quizzapp_token') === undefined) {
+            setIsLogged(false);
+        }
+        else {
+            setIsLogged(true);
+            setUsername(cookies.get('quizzapp_username'));
+        }
+    }
+
+    useEffect(() => {
+        checkLogin();
+    }, []);
+
     return (
         <BrowserRouter>
-            <Navbar />
+            <Navbar isLogged={isLogged} username={username} />
             <Routes>
                 <Route path='/' element={<Home />} />
                 <Route path='/login' element={<Suspense fallback={<Loader />}>
-                    <Login />
+                    <Login checkLogin={checkLogin} />
                 </Suspense>} />
                 <Route path='/register' element={<Suspense fallback={<Loader />}>
                     <Register />

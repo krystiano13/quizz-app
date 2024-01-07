@@ -1,7 +1,6 @@
 import React from 'react';
 import Cookies from "universal-cookie";
 
-
 //hooks
 import { useToast } from "../components/ui/use-toast";
 import { useNavigate } from "react-router";
@@ -11,7 +10,11 @@ import { Card } from '../components/ui/card';
 import { Input } from '../components/ui/input';
 import { Button } from '../components/ui/button';
 
-export default function Login() {
+interface Props {
+    checkLogin: () => void
+}
+
+const Login: React.FC<Props> = ({ checkLogin }) => {
     const { toast } = useToast();
     const navigate = useNavigate();
 
@@ -43,8 +46,11 @@ export default function Login() {
                         expires: new Date(today.getTime() + 86400000)
                     });
 
-                    navigate('/');
                 }
+            })
+            .then(() => {
+                checkLogin();
+                navigate('/');
             })
     }
 
@@ -60,3 +66,5 @@ export default function Login() {
         </main>
     )
 }
+
+export default Login;

@@ -8,23 +8,13 @@ import {
     MenubarSeparator,
     MenubarTrigger,
 } from "../ui/menubar"
-import Cookies from "universal-cookie";
 
-export function Navbar() {
-    const [isLogged, setIsLogged] = useState<boolean>(false);
-    const [username, setUsername] = useState<string>("Admin");
-    const cookies = new Cookies();
+interface Props {
+    isLogged: boolean,
+    username: string
+}
 
-    useEffect(() => {
-        if(cookies.get('quizzapp_token') === undefined) {
-            setIsLogged(false);
-        }
-        else {
-            setIsLogged(true);
-            setUsername(cookies.get('quizzapp_username'));
-        }
-    }, [cookies]);
-
+export const Navbar:React.FC<Props> = ({ isLogged, username }) => {
     return (
        <nav className="w-[100vw] h-[5rem] flex justify-between items-center p-3 fixed">
            <NavLink to="/">
