@@ -16,7 +16,7 @@ export function Navbar() {
 
     useEffect(() => {
         const cookies = new Cookies();
-        if(cookies.get('token') === undefined) {
+        if(cookies.get('quizzapp_token') === undefined) {
             setIsLogged(false);
         }
     }, []);
