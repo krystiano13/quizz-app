@@ -3,6 +3,7 @@ import { useSearchParams, useNavigate } from "react-router-dom";
 
 // components
 import { Avatar, AvatarFallback, AvatarImage } from "../components/ui/avatar";
+import { Button } from '../components/ui/button';
 import {
     Card,
     CardHeader,
@@ -69,7 +70,17 @@ const Profile = () => {
                 <CardHeader>
                     <CardTitle>{ userInfo[0].name }</CardTitle>
                     <CardDescription>
-                        { userInfo[0].about }
+                        {
+                            userInfo[0].about === "" ?
+                                <>
+                                    <p>No About Section</p>
+                                    <Button className="mt-2">Create It</Button>
+                                </> :
+                                <>
+                                    <p>{ userInfo[0].about }</p>
+                                    <Button className="mt-2">Edit</Button>
+                                </>
+                        }
                     </CardDescription>
                 </CardHeader>
                 <CardContent>
