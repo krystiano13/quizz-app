@@ -19,6 +19,17 @@ class ProfileController extends Controller
         ], 200);
     }
 
+    public function getAbout(string $username) {
+        $result = Profile::where('name', $username)
+            -> latest()
+            -> get('about');
+
+        return response([
+            'status' => true,
+            'result' => $result
+        ], 200);
+    }
+
     public function editDescription(Request $req) {
         $validation = Validator::make($req -> all(), [
             'username' => 'required',
