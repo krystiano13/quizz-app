@@ -1,5 +1,5 @@
 import React , { useState, useEffect } from 'react';
-import { useNavigate } from "react-router";
+import { useSearchParams, useNavigate } from "react-router-dom";
 
 // components
 import { Avatar, AvatarFallback, AvatarImage } from "../components/ui/avatar";
@@ -11,18 +11,33 @@ import {
 }
 from '../components/ui/card';
 
-interface Props {
-    isLogged: boolean,
-    username: string,
-    checkLogin: () => void
+interface UserInfo {
+    id: number;
+    name: string;
+    about: string;
+    created_at: string;
+    updated_at: string;
+    quizzes_made: number;
+    quizzes_solved: number;
+    quizzes_rated: number;
+    average_rating: number;
 }
 
-const Profile:React.FC<Props> = ({ isLogged, checkLogin, username }) => {
+const Profile = () => {
+    const [searchParams, setSearchParams] = useSearchParams();
     const navigate = useNavigate();
+    const [userInfo, setUserInfo] = useState<UserInfo[]>([]);
     function getProfileInfo() {
-        if(!isLogged) {
+        if(!searchParams.get('username')) {
             navigate('/');
+            return;
         }
+
+        fetch(`http://127.0.0.1:8000/api/profile/${searchParams.get('username')}`)
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+            })
     }
 
     useEffect(() => {

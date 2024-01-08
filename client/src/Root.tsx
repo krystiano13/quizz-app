@@ -45,7 +45,7 @@ export function Root() {
                     <Register />
                 </Suspense>} />
                 <Route path='/profile' element={<Suspense fallback={<Loader />}>
-                    <Profile isLogged={isLogged} username={username} checkLogin={checkLogin} />
+                    <Profile />
                 </Suspense>} />
                 <Route path='/search' element={<Suspense fallback={<Loader />}>
                     <Search />
