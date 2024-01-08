@@ -1,5 +1,6 @@
 import React , { useState, useEffect } from 'react';
 import { useSearchParams, useNavigate } from "react-router-dom";
+import Cookies from 'universal-cookie';
 
 // components
 import { Avatar, AvatarFallback, AvatarImage } from "../components/ui/avatar";
@@ -27,7 +28,20 @@ interface UserInfo {
 const Profile = () => {
     const [searchParams, setSearchParams] = useSearchParams();
     const navigate = useNavigate();
-    const [userInfo, setUserInfo] = useState<UserInfo[]>([]);
+    const [userInfo, setUserInfo] = useState<UserInfo[]>([{
+        id: -1,
+        name: "Ad",
+        about: "",
+        created_at: "",
+        updated_at: "",
+        quizzes_made: 0,
+        quizzes_rated: 0,
+        quizzes_solved: 0,
+        average_rating: 0
+    }]);
+
+    const cookies = new Cookies();
+
     function getProfileInfo() {
         if(!searchParams.get('username')) {
             navigate('/');
