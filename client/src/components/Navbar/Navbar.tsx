@@ -84,7 +84,9 @@ export const Navbar:React.FC<Props> = ({ isLogged, username, checkLogin }) => {
                        {
                            isLogged &&
                            <>
-                               <MenubarItem className="text-xs md:text-base">Profile</MenubarItem>
+                               <NavLink to={`/profile?username=${username}`}>
+                                   <MenubarItem className="text-xs md:text-base">Profile</MenubarItem>
+                               </NavLink>
                                <MenubarItem onClick={logout} className="text-xs md:text-base">Log Out</MenubarItem>
                            </>
                        }
