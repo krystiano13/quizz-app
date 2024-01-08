@@ -8,6 +8,7 @@ const Login = lazy(() => import('./views/Login'));
 const Register = lazy(() => import('./views/Register'));
 const Profile = lazy(() => import('./views/Profile'));
 const Search = lazy(() => import('./views/Search'));
+const AboutEdit = lazy(() => import('./views/AboutEdit'));
 
 //components
 import { Loader } from './components/Loader/Loader';
@@ -49,6 +50,9 @@ export function Root() {
                 </Suspense>} />
                 <Route path='/search' element={<Suspense fallback={<Loader />}>
                     <Search />
+                </Suspense>} />
+                <Route path='/aboutedit' element={<Suspense fallback={<Loader />}>
+                    <AboutEdit />
                 </Suspense>} />
             </Routes>
         </BrowserRouter>
