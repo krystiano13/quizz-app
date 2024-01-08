@@ -17,8 +17,8 @@ interface Props {
 }
 
 export const Navbar:React.FC<Props> = ({ isLogged, username, checkLogin }) => {
+    const cookies = new Cookies();
     function logout() {
-        const cookies = new Cookies();
         cookies.remove("quizzapp_token");
         cookies.remove("quizzapp_username");
         checkLogin();

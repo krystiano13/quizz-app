@@ -1,4 +1,7 @@
-import React from 'react';
+import React , { useState, useEffect } from 'react';
+import { useNavigate } from "react-router";
+
+// components
 import { Avatar, AvatarFallback, AvatarImage } from "../components/ui/avatar";
 import {
     Card,
@@ -6,9 +9,26 @@ import {
     CardTitle,
     CardDescription, CardContent
 }
-    from '../components/ui/card';
+from '../components/ui/card';
 
-export default function Profile() {
+interface Props {
+    isLogged: boolean,
+    username: string,
+    checkLogin: () => void
+}
+
+const Profile:React.FC<Props> = ({ isLogged, checkLogin, username }) => {
+    const navigate = useNavigate();
+    function getProfileInfo() {
+        if(!isLogged) {
+            navigate('/');
+        }
+    }
+
+    useEffect(() => {
+        getProfileInfo();
+    }, []);
+
     return (
         <main className="form-anim theme-rose w-[100vw] h-[100vh] flex justify-center items-center">
             <Card className="p-6 flex flex-col w-[75%] md:w-[45%] lg:w-[35%] xl:w-[30%]">
@@ -33,3 +53,5 @@ export default function Profile() {
         </main>
     )
 }
+
+export default Profile;
