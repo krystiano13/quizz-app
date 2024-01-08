@@ -88,11 +88,17 @@ const Profile = () => {
                             userInfo[0].about === "" ?
                                 <>
                                     <p>No About Section</p>
-                                    <Button className="mt-2">Create It</Button>
+                                    {
+                                        cookies.get('quizzapp_username') === userInfo[0].name &&
+                                        <Button className="mt-2">Create It</Button>
+                                    }
                                 </> :
                                 <>
                                     <p>{ userInfo[0].about }</p>
-                                    <Button className="mt-2">Edit</Button>
+                                    {
+                                        cookies.get('quizzapp_username') === userInfo[0].name &&
+                                        <Button className="mt-2">Edit</Button>
+                                    }
                                 </>
                         }
                     </CardDescription>
