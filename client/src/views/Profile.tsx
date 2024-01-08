@@ -4,6 +4,7 @@ import Cookies from 'universal-cookie';
 
 // components
 import { Avatar, AvatarFallback, AvatarImage } from "../components/ui/avatar";
+import { Skeleton } from '../components/ui/skeleton';
 import { Button } from '../components/ui/button';
 import {
     Card,
@@ -74,43 +75,60 @@ const Profile = () => {
     }, []);
 
     return (
-        <main className="form-anim theme-rose w-[100vw] h-[100vh] flex justify-center items-center">
+        <main className="theme-rose w-[100vw] h-[100vh] flex justify-center items-center">
             <Card className="p-6 flex flex-col w-[75%] md:w-[45%] lg:w-[35%] xl:w-[30%]">
-                <Avatar className="ml-3">
-                    <AvatarFallback>
-                        { userInfo[0].name[0].toUpperCase() + userInfo[0].name[1] }
-                    </AvatarFallback>
-                </Avatar>
-                <CardHeader>
-                    <CardTitle>{ userInfo[0].name }</CardTitle>
-                    <CardDescription>
-                        {
-                            userInfo[0].about === "" ?
-                                <>
-                                    <p>No About Section</p>
-                                    {
-                                        cookies.get('quizzapp_username') === userInfo[0].name &&
-                                        <Button className="mt-2">Create It</Button>
-                                    }
-                                </> :
-                                <>
-                                    <p>{ userInfo[0].about }</p>
-                                    {
-                                        cookies.get('quizzapp_username') === userInfo[0].name &&
-                                        <Button className="mt-2">Edit</Button>
-                                    }
-                                </>
-                        }
-                    </CardDescription>
-                </CardHeader>
-                <CardContent>
-                    <ul>
-                        <li>Quizzes Made: { userInfo[0].quizzes_made }</li>
-                        <li>Quizzes Solved: { userInfo[0].quizzes_solved }</li>
-                        <li>Quizzes Rated: { userInfo[0].quizzes_rated }</li>
-                        <li>Average Quizzes Ratings: { userInfo[0].average_rating }</li>
-                    </ul>
-                </CardContent>
+                {
+                    userInfo[0].id !== -1 &&
+                    <>
+                        <Avatar className="ml-3 form-anim">
+                            <AvatarFallback>
+                                { userInfo[0].name[0].toUpperCase() + userInfo[0].name[1] }
+                            </AvatarFallback>
+                        </Avatar>
+                        <CardHeader className="form-anim">
+                            <CardTitle>{ userInfo[0].name }</CardTitle>
+                            <CardDescription>
+                                {
+                                    userInfo[0].about === "" ?
+                                        <>
+                                            <p>No About Section</p>
+                                            {
+                                                cookies.get('quizzapp_username') === userInfo[0].name &&
+                                                <Button className="mt-2">Create It</Button>
+                                            }
+                                        </> :
+                                        <>
+                                            <p>{ userInfo[0].about }</p>
+                                            {
+                                                cookies.get('quizzapp_username') === userInfo[0].name &&
+                                                <Button className="mt-2">Edit</Button>
+                                            }
+                                        </>
+                                }
+                            </CardDescription>
+                        </CardHeader>
+                        <CardContent>
+                            <ul className="form-anim">
+                                <li>Quizzes Made: { userInfo[0].quizzes_made }</li>
+                                <li>Quizzes Solved: { userInfo[0].quizzes_solved }</li>
+                                <li>Quizzes Rated: { userInfo[0].quizzes_rated }</li>
+                                <li>Average Quizzes Ratings: { userInfo[0].average_rating }</li>
+                            </ul>
+                        </CardContent>
+                    </>
+                }
+                {
+                    userInfo[0].id === -1 &&
+                    <>
+                        <Skeleton className="w-[3rem] h-[3rem] ml-3 rounded-full" />
+                        <Skeleton className="w-[60%] h-[2rem] ml-3 mt-3" />
+                        <Skeleton className="w-[50%] h-[1.5rem] ml-3 mt-3" />
+                        <Skeleton className="w-[50%] h-[1.25rem] ml-3 mt-3" />
+                        <Skeleton className="w-[50%] h-[1.25rem] ml-3 mt-3" />
+                        <Skeleton className="w-[50%] h-[1.25rem] ml-3 mt-3" />
+                        <Skeleton className="w-[50%] h-[1.25rem] ml-3 mt-3" />
+                    </>
+                }
             </Card>
         </main>
     )
