@@ -10,13 +10,13 @@ export default function QuizzPreview() {
         <main className="form-anim theme-rose w-[100vw] h-[100vh] flex justify-center items-center">
             <Card className="w-4/5 h-2/3">
                 <CardHeader>
-                    <CardTitle className="text-5xl">
+                    <CardTitle className="text-xl md:text-4xl">
                         Test 1
                     </CardTitle>
                 </CardHeader>
                 <Separator />
                 <CardContent>
-                    <CardDescription className="mt-6 mb-6 text-base md:text-lg max-w-[90%] md:max-w-[60%]">
+                    <CardDescription className="mt-6 mb-6 text-xs md:text-xl max-w-[100%] lg:max-w-[60%]">
                         Lorem ipsum dolor sit amet,
                         consectetur adipiscing elit.
                         Sed tempus purus at sem lobortis, et finibus eros aliquet.
@@ -26,15 +26,15 @@ export default function QuizzPreview() {
                         a dignissim ante urna in est. Donec tincidunt dignissim lobortis.
                     </CardDescription>
                     <section id="rating">
-                        <h2>
+                        <h2 className="text-lg md:text-3xl mb-4">
                             Rate Quizz:
                         </h2>
-                        <div id="buttons">
-                            <Button className="rounded-full w-[2rem] h-[2rem] mr-2"></Button>
-                            <Button className="rounded-full w-[2rem] h-[2rem] mr-2"></Button>
-                            <Button className="rounded-full w-[2rem] h-[2rem] mr-2"></Button>
-                            <Button className="rounded-full w-[2rem] h-[2rem] mr-2"></Button>
-                            <Button className="rounded-full w-[2rem] h-[2rem] mr-2"></Button>
+                        <div id="buttons" className="mb-4">
+                            <Button className="rounded-full w-[1.5rem] h-[2rem] mr-2"></Button>
+                            <Button className="rounded-full w-[1.5rem] h-[2rem] mr-2"></Button>
+                            <Button className="rounded-full w-[1.5rem] h-[2rem] mr-2"></Button>
+                            <Button className="rounded-full w-[1.5rem] h-[2rem] mr-2"></Button>
+                            <Button className="rounded-full w-[1.5rem] h-[2rem] mr-2"></Button>
                         </div>
                     </section>
                     <Button>Start Quizz</Button>
