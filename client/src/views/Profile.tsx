@@ -1,5 +1,6 @@
 import React , { useState, useEffect } from 'react';
 import { useSearchParams, useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import Cookies from 'universal-cookie';
 
 // components
@@ -94,14 +95,18 @@ const Profile = () => {
                                             <p>No About Section</p>
                                             {
                                                 cookies.get('quizzapp_username') === userInfo[0].name &&
-                                                <Button className="mt-2">Create It</Button>
+                                                <NavLink to='/aboutedit'>
+                                                    <Button className="mt-2">Create It</Button>
+                                                </NavLink>
                                             }
                                         </> :
                                         <>
                                             <p>{ userInfo[0].about }</p>
                                             {
                                                 cookies.get('quizzapp_username') === userInfo[0].name &&
-                                                <Button className="mt-2">Edit</Button>
+                                                <NavLink to='/aboutedit'>
+                                                    <Button className="mt-2">Edit</Button>
+                                                </NavLink>
                                             }
                                         </>
                                 }
