@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useNavigate } from "react-router";
+import Cookies from 'universal-cookie';
 
 // components
 import { Button } from "../components/ui/button";
@@ -6,9 +8,17 @@ import { Card } from '../components/ui/card';
 import { Textarea } from '../components/ui/textarea';
 
 const AboutEdit = () => {
+    const cookies = new Cookies();
+    const navigate = useNavigate();
     async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
     }
+
+    useEffect(() => {
+        if(cookies.get("quizzapp_username")) {
+            navigate('/');
+        }
+    }, []);
 
     return (
         <main className="form-anim theme-rose w-[100vw] h-[100vh] flex justify-center items-center">
