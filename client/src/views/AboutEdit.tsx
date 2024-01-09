@@ -15,7 +15,16 @@ const AboutEdit = () => {
         const data = new FormData(e.target as HTMLFormElement);
         data.append("username", cookies.get('quizzapp_username') as string);
 
-        await fetch('')
+        await fetch('http://127.0.0.1:8000/api/profile/edit', {
+            method: "POST",
+            body: data
+        })
+            .then(res => res.json())
+            .then(data => {
+                if(data.status === true) {
+                    navigate(`/profile?username=${cookies.get('quizzapp_username')}`);
+                }
+            })
     }
 
     useEffect(() => {
