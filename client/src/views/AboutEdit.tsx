@@ -2,6 +2,9 @@ import React, { useEffect } from 'react';
 import { useNavigate } from "react-router";
 import Cookies from 'universal-cookie';
 
+// hooks
+import { useToast } from "../components/ui/use-toast";
+
 // components
 import { Button } from "../components/ui/button";
 import { Card } from '../components/ui/card';
@@ -10,6 +13,8 @@ import { Textarea } from '../components/ui/textarea';
 const AboutEdit = () => {
     const cookies = new Cookies();
     const navigate = useNavigate();
+    const { toast } = useToast();
+
     async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
         const data = new FormData(e.target as HTMLFormElement);
@@ -24,11 +29,17 @@ const AboutEdit = () => {
                 if(data.status === true) {
                     navigate(`/profile?username=${cookies.get('quizzapp_username')}`);
                 }
+                else {
+                    toast({
+                        title: "Validation Error",
+                        description: data.errors.about[0]
+                    });
+                }
             })
     }
 
     useEffect(() => {
-        if(cookies.get("quizzapp_username")) {
+        if(!cookies.get("quizzapp_username")) {
             navigate('/');
         }
     }, []);
