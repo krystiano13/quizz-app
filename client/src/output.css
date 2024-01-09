@@ -863,6 +863,10 @@ body {
   width: 45%;
 }
 
+.w-\[100\%\] {
+  width: 100%;
+}
+
 .min-w-\[12rem\] {
   min-width: 12rem;
 }
@@ -1676,6 +1680,16 @@ body {
   .md\:text-base {
     font-size: 1rem;
     line-height: 1.5rem;
+  }
+
+  .md\:text-lg {
+    font-size: 1.125rem;
+    line-height: 1.75rem;
+  }
+
+  .md\:text-xl {
+    font-size: 1.25rem;
+    line-height: 1.75rem;
   }
 }
 
