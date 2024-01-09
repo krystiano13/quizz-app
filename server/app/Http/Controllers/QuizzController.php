@@ -58,6 +58,7 @@ class QuizzController extends Controller
     public function editQuizz(int $id, Request $req) {
         $validation = Validator::make($req -> all(), [
             'title' => 'required',
+            'description' => 'required',
             'username' => 'required'
         ]);
 
@@ -71,7 +72,8 @@ class QuizzController extends Controller
         Quizz::where('id', $id)
             -> where('author', $req -> get('username'))
             -> update([
-                'title' => $req -> get('title')
+                'title' => $req -> get('title'),
+                'description' => $req -> get('description')
             ]);
 
         return response([
