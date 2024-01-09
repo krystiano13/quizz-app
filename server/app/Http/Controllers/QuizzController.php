@@ -55,6 +55,32 @@ class QuizzController extends Controller
         ], 200);
     }
 
+    public function addQuizz(Request $req) {
+        $validation = Validator::make($req -> all(), [
+            'title' => 'required',
+            'description' => 'required',
+            'username' => 'required'
+        ]);
+
+        if($validation -> fails()) {
+            return response([
+                'status' => false,
+                'errors' => $validation -> errors()
+            ], 403);
+        }
+
+        Quizz::create([
+            'title' => $req -> get('title'),
+            'description' => $req -> get('description'),
+            'author' => $req -> get('username')
+        ]);
+
+        return response([
+            'status' => true,
+            'message' => 'Created'
+        ], 200);
+    }
+
     public function editQuizz(int $id, Request $req) {
         $validation = Validator::make($req -> all(), [
             'title' => 'required',

@@ -27,6 +27,7 @@ Route::get('/quizz/user/{username}', [QuizzController::class, 'getUsersQuizzes']
 Route::post('/quizz/search',[QuizzController::class, 'search']);
 Route::post('/quizz/delete/{id}', [QuizzController::class, 'deleteQuizz']);
 Route::post('/quizz/edit/{id}', [QuizzController::class, 'editQuizz']);
+Route::post('/quizz/add', [QuizzController::class, 'addQuizz']);
 
 //Questions API routes
 Route::get('/question/all/{quizzId}', [AnswerController::class, 'getAllQuestions']);
