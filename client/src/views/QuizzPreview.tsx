@@ -7,8 +7,8 @@ import { Separator } from '../components/ui/separator';
 
 export default function QuizzPreview() {
     return (
-        <main className="form-anim theme-rose w-[100vw] h-[100vh] flex justify-center items-center">
-            <Card className="w-4/5 h-2/3">
+        <main className="theme-rose w-[100vw] h-[100vh] flex justify-center items-center">
+            <Card className="w-4/5 h-2/3 side-anim">
                 <CardHeader>
                     <CardTitle className="text-xl md:text-4xl">
                         Test 1

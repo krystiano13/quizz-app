@@ -6,6 +6,10 @@
   animation: formAppear 325ms;
 }
 
+.side-anim {
+  animation: sideAppear 325ms;
+}
+
 @keyframes formAppear {
   from {
     opacity : 0;
@@ -14,6 +18,17 @@
   to {
     opacity : 1;
     transform: scale(1) translateY(0px);
+  }
+}
+
+@keyframes sideAppear {
+  from {
+    opacity : 0;
+    transform: translateX(-150px);
+  }
+  to {
+    opacity : 1;
+    transform: translateX(0px);
   }
 }
 
