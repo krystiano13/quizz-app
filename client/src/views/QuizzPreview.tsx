@@ -73,11 +73,11 @@ export default function QuizzPreview() {
                             Rate Quizz:
                         </h2>
                         <div id="buttons" className="mb-4">
-                            <Button className="rounded-full w-[1.5rem] h-[2rem] mr-2"></Button>
-                            <Button className="rounded-full w-[1.5rem] h-[2rem] mr-2"></Button>
-                            <Button className="rounded-full w-[1.5rem] h-[2rem] mr-2"></Button>
-                            <Button className="rounded-full w-[1.5rem] h-[2rem] mr-2"></Button>
-                            <Button className="rounded-full w-[1.5rem] h-[2rem] mr-2"></Button>
+                            <Button variant="secondary" className="rounded-full w-[1.5rem] h-[2rem] mr-2"></Button>
+                            <Button variant="secondary" className="rounded-full w-[1.5rem] h-[2rem] mr-2"></Button>
+                            <Button variant="secondary" className="rounded-full w-[1.5rem] h-[2rem] mr-2"></Button>
+                            <Button variant="secondary" className="rounded-full w-[1.5rem] h-[2rem] mr-2"></Button>
+                            <Button variant="secondary" className="rounded-full w-[1.5rem] h-[2rem] mr-2"></Button>
                         </div>
                     </section>
                     <Button>Start Quizz</Button>
