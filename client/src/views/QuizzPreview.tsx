@@ -34,6 +34,10 @@ export default function QuizzPreview() {
     });
     const navigate = useNavigate();
 
+    function rate(value:rating):void {
+        setRating(value);
+    }
+
     useEffect(() => {
         if(!searchParams.get("id")) {
             navigate('/');
@@ -76,11 +80,26 @@ export default function QuizzPreview() {
                             Rate Quizz:
                         </h2>
                         <div id="buttons" className="mb-4">
-                            <Button variant={rating === 1 ? "default" : "secondary"} className="rounded-full w-[1.5rem] h-[2rem] mr-2"></Button>
-                            <Button variant={rating === 2 ? "default" : "secondary"} className="rounded-full w-[1.5rem] h-[2rem] mr-2"></Button>
-                            <Button variant={rating === 3 ? "default" : "secondary"} className="rounded-full w-[1.5rem] h-[2rem] mr-2"></Button>
-                            <Button variant={rating === 4 ? "default" : "secondary"} className="rounded-full w-[1.5rem] h-[2rem] mr-2"></Button>
-                            <Button variant={rating === 5 ? "default" : "secondary"} className="rounded-full w-[1.5rem] h-[2rem] mr-2"></Button>
+                            <Button
+                                onClick={() => rate(1)}
+                                variant={rating >= 1 ? "default" : "secondary"}
+                                className="rounded-full w-[1.5rem] h-[2rem] mr-2"></Button>
+                            <Button
+                                onClick={() => rate(2)}
+                                variant={rating >= 2 ? "default" : "secondary"}
+                                className="rounded-full w-[1.5rem] h-[2rem] mr-2"></Button>
+                            <Button
+                                onClick={() => rate(3)}
+                                variant={rating >= 3 ? "default" : "secondary"}
+                                className="rounded-full w-[1.5rem] h-[2rem] mr-2"></Button>
+                            <Button
+                                onClick={() => rate(4)}
+                                variant={rating >= 4 ? "default" : "secondary"}
+                                className="rounded-full w-[1.5rem] h-[2rem] mr-2"></Button>
+                            <Button
+                                onClick={() => rate(5)}
+                                variant={rating >= 5 ? "default" : "secondary"}
+                                className="rounded-full w-[1.5rem] h-[2rem] mr-2"></Button>
                         </div>
                     </section>
                     <Button>Start Quizz</Button>
