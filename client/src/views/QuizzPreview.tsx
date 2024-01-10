@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSearchParams, useNavigate } from "react-router-dom";
 
 // components
@@ -6,8 +6,29 @@ import { Card, CardHeader, CardContent, CardTitle, CardDescription } from '../co
 import { Button } from '../components/ui/button';
 import { Separator } from '../components/ui/separator';
 
+interface Info {
+    id: number,
+    created_at: string;
+    updated_at: string;
+    title: string;
+    author: string;
+    rating_sum: number;
+    rates_count: number;
+    description: string;
+}
+
 export default function QuizzPreview() {
     const [searchParams, setSearchParams] = useSearchParams();
+    const [info, setInfo] = useState<Info>({
+        id: -1,
+        created_at: "",
+        updated_at: "",
+        title: "",
+        author: "",
+        rating_sum: 0,
+        rates_count: 0,
+        description: "",
+    });
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -22,19 +43,13 @@ export default function QuizzPreview() {
             <Card className="w-4/5 h-2/3 side-anim">
                 <CardHeader>
                     <CardTitle className="text-xl md:text-4xl">
-                        Test 1
+                        { info.title }
                     </CardTitle>
                 </CardHeader>
                 <Separator />
                 <CardContent>
                     <CardDescription className="mt-6 mb-6 text-xs md:text-xl max-w-[100%] lg:max-w-[60%]">
-                        Lorem ipsum dolor sit amet,
-                        consectetur adipiscing elit.
-                        Sed tempus purus at sem lobortis, et finibus eros aliquet.
-                        Nunc condimentum consectetur placerat.
-                        Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae;
-                        Aenean sagittis, ex et egestas feugiat, augue ligula sagittis risus,
-                        a dignissim ante urna in est. Donec tincidunt dignissim lobortis.
+                        { info.description }
                     </CardDescription>
                     <section id="rating">
                         <h2 className="text-lg md:text-3xl mb-4">
