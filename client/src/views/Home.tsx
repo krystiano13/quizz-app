@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useSearchParams } from "react-router-dom";
 import { NavLink } from "react-router-dom";
+import Cookies from 'universal-cookie';
 
 //components
 import { QuizzCard } from "../components/Home/QuizzCard";
@@ -17,6 +18,7 @@ interface Quizz {
 export function Home() {
     const [searchParams, setSearchParams] = useSearchParams();
     const [quizzes, setQuizzes] = useState<Quizz[]>([]);
+    const cookies = new Cookies();
 
     useEffect(() => {
         let url:string = "";

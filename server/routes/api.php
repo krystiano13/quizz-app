@@ -31,7 +31,7 @@ Route::get('/quizz/id/{id}', [QuizzController::class, 'getById']);
 Route::get('/quizz/latest', [QuizzController::class, 'getLatest']);
 Route::get('/quizz/highestRated', [QuizzController::class, 'getHighestRated']);
 Route::get('/quizz/user/{username}', [QuizzController::class, 'getUsersQuizzes']);
-Route::middleware('auth:sanctum') -> post('/quizz/search',[QuizzController::class, 'search']);
+Route::post('/quizz/search',[QuizzController::class, 'search']);
 Route::middleware('auth:sanctum') -> post('/quizz/delete/{id}', [QuizzController::class, 'deleteQuizz']);
 Route::middleware('auth:sanctum') -> post('/quizz/edit/{id}', [QuizzController::class, 'editQuizz']);
 Route::middleware('auth:sanctum') -> post('/quizz/add', [QuizzController::class, 'addQuizz']);

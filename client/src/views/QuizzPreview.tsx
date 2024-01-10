@@ -51,6 +51,9 @@ export default function QuizzPreview() {
         if(isRateExist) {
             fetch(`http://127.0.0.1:8000/api/ratings/edit/${searchParams.get('id')}`, {
                 method: "POST",
+                headers: {
+                    Authorization: `Bearer ${cookies.get('quizzapp_token')}`
+                },
                 body: data
             })
                 .then(res => res.json())
@@ -59,6 +62,9 @@ export default function QuizzPreview() {
         else {
             fetch('http://127.0.0.1:8000/api/ratings/add/', {
                 method: "POST",
+                headers: {
+                    Authorization: `Bearer ${cookies.get('quizzapp_token')}`
+                },
                 body: data
             })
                 .then(res => res.json())

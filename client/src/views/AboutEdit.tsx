@@ -24,6 +24,9 @@ const AboutEdit = () => {
 
         await fetch('http://127.0.0.1:8000/api/profile/edit', {
             method: "POST",
+            headers: {
+                Authorization: `Bearer ${cookies.get('quizzapp_token')}`
+            },
             body: data
         })
             .then(res => res.json())
