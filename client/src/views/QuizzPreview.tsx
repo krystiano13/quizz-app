@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSearchParams, useNavigate } from "react-router-dom";
+import Cookies from 'universal-cookie';
 
 // components
 import { Card, CardHeader, CardContent, CardTitle, CardDescription } from '../components/ui/card';
@@ -33,6 +34,7 @@ export default function QuizzPreview() {
         description: "",
     });
     const navigate = useNavigate();
+    const cookies = new Cookies();
 
     function rate(value:rating):void {
         setRating(value);
@@ -75,33 +77,36 @@ export default function QuizzPreview() {
                     <CardDescription className="mt-6 mb-6 text-xs md:text-xl max-w-[100%] lg:max-w-[60%]">
                         { info.description }
                     </CardDescription>
-                    <section id="rating">
-                        <h2 className="text-lg md:text-3xl mb-4">
-                            Rate Quizz:
-                        </h2>
-                        <div id="buttons" className="mb-4">
-                            <Button
-                                onClick={() => rate(1)}
-                                variant={rating >= 1 ? "default" : "secondary"}
-                                className="rounded-full w-[1.5rem] h-[2rem] mr-2"></Button>
-                            <Button
-                                onClick={() => rate(2)}
-                                variant={rating >= 2 ? "default" : "secondary"}
-                                className="rounded-full w-[1.5rem] h-[2rem] mr-2"></Button>
-                            <Button
-                                onClick={() => rate(3)}
-                                variant={rating >= 3 ? "default" : "secondary"}
-                                className="rounded-full w-[1.5rem] h-[2rem] mr-2"></Button>
-                            <Button
-                                onClick={() => rate(4)}
-                                variant={rating >= 4 ? "default" : "secondary"}
-                                className="rounded-full w-[1.5rem] h-[2rem] mr-2"></Button>
-                            <Button
-                                onClick={() => rate(5)}
-                                variant={rating >= 5 ? "default" : "secondary"}
-                                className="rounded-full w-[1.5rem] h-[2rem] mr-2"></Button>
-                        </div>
-                    </section>
+                    {
+                        cookies.get('quizzapp_token') &&
+                        <section id="rating">
+                            <h2 className="text-lg md:text-3xl mb-4">
+                                Rate Quizz:
+                            </h2>
+                            <div id="buttons" className="mb-4">
+                                <Button
+                                    onClick={() => rate(1)}
+                                    variant={rating >= 1 ? "default" : "secondary"}
+                                    className="rounded-full w-[1.5rem] h-[2rem] mr-2"></Button>
+                                <Button
+                                    onClick={() => rate(2)}
+                                    variant={rating >= 2 ? "default" : "secondary"}
+                                    className="rounded-full w-[1.5rem] h-[2rem] mr-2"></Button>
+                                <Button
+                                    onClick={() => rate(3)}
+                                    variant={rating >= 3 ? "default" : "secondary"}
+                                    className="rounded-full w-[1.5rem] h-[2rem] mr-2"></Button>
+                                <Button
+                                    onClick={() => rate(4)}
+                                    variant={rating >= 4 ? "default" : "secondary"}
+                                    className="rounded-full w-[1.5rem] h-[2rem] mr-2"></Button>
+                                <Button
+                                    onClick={() => rate(5)}
+                                    variant={rating >= 5 ? "default" : "secondary"}
+                                    className="rounded-full w-[1.5rem] h-[2rem] mr-2"></Button>
+                            </div>
+                        </section>
+                    }
                     <Button>Start Quizz</Button>
                 </CardContent>
             </Card>
