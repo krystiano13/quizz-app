@@ -6,6 +6,7 @@ import Cookies from 'universal-cookie';
 import { Card, CardHeader, CardContent, CardTitle, CardDescription } from '../components/ui/card';
 import { Button } from '../components/ui/button';
 import { Separator } from '../components/ui/separator';
+import { Loader } from '../components/Loader/Loader';
 
 interface Info {
     id: number,
@@ -23,6 +24,7 @@ type rating = 0|1|2|3|4|5;
 export default function QuizzPreview() {
     const [searchParams, setSearchParams] = useSearchParams();
     const [rating, setRating] = useState<rating>(0);
+    const [rateLoading, setRateLoading] = useState<boolean>(false);
     const [isRateExist, setIsRateExist] = useState<boolean>(false);
     const [info, setInfo] = useState<Info>({
         id: -1,
@@ -38,7 +40,30 @@ export default function QuizzPreview() {
     const cookies = new Cookies();
 
     function rate(value:rating):void {
+        setRateLoading(true);
         setRating(value);
+
+        const data = new FormData();
+        data.append('username', cookies.get('quizzapp_username'));
+        data.append('rating', value.toString());
+        data.append('quizzId', searchParams.get('id') as string);
+
+        if(isRateExist) {
+            fetch(`http://127.0.0.1:8000/api/ratings/edit/${searchParams.get('id')}`, {
+                method: "POST",
+                body: data
+            })
+                .then(res => res.json())
+                .then(() => setRateLoading(false))
+        }
+        else {
+            fetch(`http://127.0.0.1:8000/api/ratings/add`, {
+                method: "POST",
+                body: data
+            })
+                .then(res => res.json())
+                .then(() => setRateLoading(false))
+        }
     }
 
     useEffect(() => {
@@ -95,28 +120,34 @@ export default function QuizzPreview() {
                             <h2 className="text-lg md:text-3xl mb-4">
                                 Rate Quizz:
                             </h2>
-                            <div id="buttons" className="mb-4">
-                                <Button
-                                    onClick={() => rate(1)}
-                                    variant={rating >= 1 ? "default" : "secondary"}
-                                    className="rounded-full w-[1.5rem] h-[2rem] mr-2"></Button>
-                                <Button
-                                    onClick={() => rate(2)}
-                                    variant={rating >= 2 ? "default" : "secondary"}
-                                    className="rounded-full w-[1.5rem] h-[2rem] mr-2"></Button>
-                                <Button
-                                    onClick={() => rate(3)}
-                                    variant={rating >= 3 ? "default" : "secondary"}
-                                    className="rounded-full w-[1.5rem] h-[2rem] mr-2"></Button>
-                                <Button
-                                    onClick={() => rate(4)}
-                                    variant={rating >= 4 ? "default" : "secondary"}
-                                    className="rounded-full w-[1.5rem] h-[2rem] mr-2"></Button>
-                                <Button
-                                    onClick={() => rate(5)}
-                                    variant={rating >= 5 ? "default" : "secondary"}
-                                    className="rounded-full w-[1.5rem] h-[2rem] mr-2"></Button>
-                            </div>
+                            {
+                                !rateLoading &&
+                                <div id="buttons" className="mb-4">
+                                    <Button
+                                        onClick={() => rate(1)}
+                                        variant={rating >= 1 ? "default" : "secondary"}
+                                        className="rounded-full w-[1.5rem] h-[2rem] mr-2"></Button>
+                                    <Button
+                                        onClick={() => rate(2)}
+                                        variant={rating >= 2 ? "default" : "secondary"}
+                                        className="rounded-full w-[1.5rem] h-[2rem] mr-2"></Button>
+                                    <Button
+                                        onClick={() => rate(3)}
+                                        variant={rating >= 3 ? "default" : "secondary"}
+                                        className="rounded-full w-[1.5rem] h-[2rem] mr-2"></Button>
+                                    <Button
+                                        onClick={() => rate(4)}
+                                        variant={rating >= 4 ? "default" : "secondary"}
+                                        className="rounded-full w-[1.5rem] h-[2rem] mr-2"></Button>
+                                    <Button
+                                        onClick={() => rate(5)}
+                                        variant={rating >= 5 ? "default" : "secondary"}
+                                        className="rounded-full w-[1.5rem] h-[2rem] mr-2"></Button>
+                                </div>
+                            }
+                            {
+                                rateLoading && <p className="mt-6 mb-6">Saving Rating ...</p>
+                            }
                         </section>
                     }
                     <Button>Start Quizz</Button>
