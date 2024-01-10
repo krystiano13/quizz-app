@@ -23,6 +23,7 @@ type rating = 0|1|2|3|4|5;
 export default function QuizzPreview() {
     const [searchParams, setSearchParams] = useSearchParams();
     const [rating, setRating] = useState<rating>(0);
+    const [isRateExist, setIsRateExist] = useState<boolean>(false);
     const [info, setInfo] = useState<Info>({
         id: -1,
         created_at: "",
@@ -62,6 +63,17 @@ export default function QuizzPreview() {
                     });
                 }
             })
+
+        if(cookies.get('quizzapp_username')) {
+            fetch(`http://127.0.0.1:8000/api/ratings/${cookies.get('quizzapp_username')}/${searchParams.get("id")}`)
+                .then(res => res.json())
+                .then(data => {
+                    if(data.result.length > 0) {
+                        setRating(data.result[0].rating_value as rating);
+                        setIsRateExist(true);
+                    }
+                })
+        }
     }, []);
 
     return (
