@@ -36,6 +36,23 @@ export default function QuizzPreview() {
             navigate('/');
             return;
         }
+
+        fetch(`http://127.0.0.1:8000/api/quizz/id/${searchParams.get('id')}`)
+            .then(res => res.json())
+            .then(data => {
+                if(data.status) {
+                    setInfo({
+                        id: data.result[0].id,
+                        created_at: data.result[0].created_at,
+                        updated_at: data.result[0].updated_at,
+                        title: data.result[0].title,
+                        author: data.result[0].author,
+                        rating_sum: data.result[0].rating_sum,
+                        rates_count: data.result[0].rates_count,
+                        description: data.result[0].description,
+                    });
+                }
+            })
     }, []);
 
     return (
