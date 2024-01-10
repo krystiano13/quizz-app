@@ -6,10 +6,14 @@ use App\Http\Controllers\QuizzController;
 use App\Http\Controllers\AnswerController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\RatingController;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+// Ratings
+Route::get('/ratings/{username}/{id}', [RatingController::class, 'getRating']);
 
 //Profile
 Route::get('/profile/{username}', [ProfileController::class, 'get']);
