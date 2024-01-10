@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSearchParams } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 //components
 import { QuizzCard } from "../components/Home/QuizzCard";
@@ -61,11 +62,14 @@ export function Home() {
        <main className="flex flex-wrap content-start h-[100vh] gap-3 pt-[5rem] pb-3 pl-3 pr-3">
            {
                quizzes.map(item => (
-                   <QuizzCard
-                       author={item.author}
-                       title={item.title}
-                       rate={(item.rating_sum / item.rates_count).toFixed(2)}
-                   />
+                   <NavLink to={`/quizzpreview?id=${item.id}`}>
+                       <QuizzCard
+                           key={item.id}
+                           author={item.author}
+                           title={item.title}
+                           rate={(item.rating_sum / item.rates_count).toFixed(2)}
+                       />
+                   </NavLink>
                ))
            }
        </main>
