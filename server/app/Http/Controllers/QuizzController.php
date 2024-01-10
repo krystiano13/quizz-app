@@ -9,6 +9,18 @@ use App\Models\Answer;
 
 class QuizzController extends Controller
 {
+
+    public function getById(int $id) {
+        $result = Quizz::where('id', $id)
+            -> latest()
+            -> get();
+
+        return response([
+            'status' => true,
+            'result' => $result
+        ], 200);
+    }
+
     public function getHighestRated(Request $req) {
         $result = Quizz::orderByRaw('rating_sum / rates_count DESC') -> take(10) -> get();
 
