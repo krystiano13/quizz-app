@@ -14,6 +14,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 // Ratings
 Route::get('/ratings/{username}/{id}', [RatingController::class, 'getRating']);
+Route::post('/ratings/edit/{id}', [RatingController::class, 'editRating']);
 
 //Profile
 Route::get('/profile/{username}', [ProfileController::class, 'get']);
