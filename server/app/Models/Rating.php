@@ -29,7 +29,8 @@ class Rating extends Model
      */
     protected $fillable = [
         'username',
-        'rating_value'
+        'rating_value',
+        'quizz_id'
     ];
 
     /**

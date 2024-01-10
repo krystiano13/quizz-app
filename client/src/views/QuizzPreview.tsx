@@ -57,7 +57,7 @@ export default function QuizzPreview() {
                 .then(() => setRateLoading(false))
         }
         else {
-            fetch(`http://127.0.0.1:8000/api/ratings/add`, {
+            fetch('http://127.0.0.1:8000/api/ratings/add/', {
                 method: "POST",
                 body: data
             })
