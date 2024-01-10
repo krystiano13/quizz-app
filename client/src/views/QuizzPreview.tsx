@@ -17,8 +17,11 @@ interface Info {
     description: string;
 }
 
+type rating = 0|1|2|3|4|5;
+
 export default function QuizzPreview() {
     const [searchParams, setSearchParams] = useSearchParams();
+    const [rating, setRating] = useState<rating>(0);
     const [info, setInfo] = useState<Info>({
         id: -1,
         created_at: "",
@@ -73,11 +76,11 @@ export default function QuizzPreview() {
                             Rate Quizz:
                         </h2>
                         <div id="buttons" className="mb-4">
-                            <Button variant="secondary" className="rounded-full w-[1.5rem] h-[2rem] mr-2"></Button>
-                            <Button variant="secondary" className="rounded-full w-[1.5rem] h-[2rem] mr-2"></Button>
-                            <Button variant="secondary" className="rounded-full w-[1.5rem] h-[2rem] mr-2"></Button>
-                            <Button variant="secondary" className="rounded-full w-[1.5rem] h-[2rem] mr-2"></Button>
-                            <Button variant="secondary" className="rounded-full w-[1.5rem] h-[2rem] mr-2"></Button>
+                            <Button variant={rating === 1 ? "default" : "secondary"} className="rounded-full w-[1.5rem] h-[2rem] mr-2"></Button>
+                            <Button variant={rating === 2 ? "default" : "secondary"} className="rounded-full w-[1.5rem] h-[2rem] mr-2"></Button>
+                            <Button variant={rating === 3 ? "default" : "secondary"} className="rounded-full w-[1.5rem] h-[2rem] mr-2"></Button>
+                            <Button variant={rating === 4 ? "default" : "secondary"} className="rounded-full w-[1.5rem] h-[2rem] mr-2"></Button>
+                            <Button variant={rating === 5 ? "default" : "secondary"} className="rounded-full w-[1.5rem] h-[2rem] mr-2"></Button>
                         </div>
                     </section>
                     <Button>Start Quizz</Button>
