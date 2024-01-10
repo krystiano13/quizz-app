@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useSearchParams, useNavigate } from "react-router-dom";
 
 // components
 import { Card, CardHeader, CardContent, CardTitle, CardDescription } from '../components/ui/card';
@@ -6,6 +7,16 @@ import { Button } from '../components/ui/button';
 import { Separator } from '../components/ui/separator';
 
 export default function QuizzPreview() {
+    const [searchParams, setSearchParams] = useSearchParams();
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if(!searchParams.get("id")) {
+            navigate('/');
+            return;
+        }
+    }, []);
+
     return (
         <main className="theme-rose w-[100vw] h-[100vh] flex justify-center items-center">
             <Card className="w-4/5 h-2/3 side-anim">
