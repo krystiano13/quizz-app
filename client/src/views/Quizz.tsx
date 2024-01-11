@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from "react-router-dom";
 
 // components
 import { Card } from '../components/ui/card';
@@ -47,6 +48,8 @@ export default function Quizz() {
     const [points, setPoints] = useState<number>(0);
     const [answerLetter, setAnswerLetter] = useState<string>("");
 
+    const navigate = useNavigate();
+
    function answer(ans:string) {
        if(answered) return;
        setAnswered(true);
@@ -61,6 +64,9 @@ export default function Quizz() {
                setCurrentQuestion(prev => prev + 1);
                setAnswerLetter("");
                setAnswered(false);
+           }
+           else {
+               navigate('/');
            }
        }, 1000);
    }
