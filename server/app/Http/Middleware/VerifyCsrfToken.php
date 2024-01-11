@@ -18,6 +18,9 @@ class VerifyCsrfToken extends Middleware
         '/api/quizz/latest',
         '/api/quizz/highestRated',
         '/api/profile/edit',
+        '/api/profile/makeQuizz',
+        '/api/profile/solveQuizz',
+        '/api/profile/rateQuizz',
         '/api/ratings/edit/*',
         '/api/ratings/add/'
     ];
