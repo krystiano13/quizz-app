@@ -20,6 +20,7 @@ Route::middleware('auth:sanctum') -> post('/ratings/add', [RatingController::cla
 //Profile
 Route::get('/profile/{username}', [ProfileController::class, 'get']);
 Route::get('/profile/about/{username}', [ProfileController::class, 'getAbout']);
+Route::post('/profile/solveQuizz', [ProfileController::class, 'solveQuizz']);
 Route::middleware('auth:sanctum') -> post('/profile/edit', [ProfileController::class, 'editDescription']);
 
 //Auth
