@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 // components
 import { Card } from '../components/ui/card';
@@ -55,9 +55,19 @@ export default function Quizz() {
        if(ans === trueAnswer) {
            setPoints(prev => prev + 1);
        }
+
+       setTimeout(() => {
+           if(currentQuestion + 1 < questions.length) {
+               setCurrentQuestion(prev => prev + 1);
+               setAnswerLetter("");
+               setAnswered(false);
+           }
+       }, 1000);
    }
 
-
+    useEffect(() => {
+        setTrueAnswer(questions[currentQuestion].true_answer);
+    }, [currentQuestion]);
 
     return (
         <main className="w-[100vw] h-[100vh] flex flex-col items-center justify-center">
