@@ -55,6 +55,32 @@ class ProfileController extends Controller
         ], 200);
     }
 
+    public function makeQuizz(Request $request) {
+        $validation = Validator::make($request -> all(), [
+            'username' => 'required'
+        ]);
+
+        if($validation -> fails()) {
+            return response([
+                'status' => false,
+                'message' => 'Validation Error',
+                'errors' => $validation -> errors()
+            ], 403);
+        }
+
+        $username = $request -> get('username');
+        $profile = Profile::where('name', $username) -> latest() -> get("quizzes_made");
+
+        Profile::where('name', $request -> get('name')) -> update([
+            'quizzes_made' => $profile[0]['quizzes_made'] + 1
+        ]);
+
+        return response([
+            'status' => true,
+            'message' => "Updated"
+        ], 200);
+    }
+
     public function solveQuizz(Request $request) {
         $validation = Validator::make($request -> all(), [
             'username' => 'required'
