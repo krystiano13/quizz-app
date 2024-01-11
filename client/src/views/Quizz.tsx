@@ -5,7 +5,7 @@ import { Card } from '../components/ui/card';
 import { Button } from '../components/ui/button';
 
 export default function Quizz() {
-    const [trueAnswer, setTrueAnswer] = useState<string>("b");
+    const [trueAnswer, setTrueAnswer] = useState<string>("a");
     const [answered, setAnswered] = useState<boolean>(false);
     const [points, setPoints] = useState<number>(0);
     const [answerLetter, setAnswerLetter] = useState<string>("");
@@ -13,10 +13,10 @@ export default function Quizz() {
    function answer(ans:string) {
        if(answered) return;
        setAnswered(true);
+       setAnswerLetter(ans);
 
        if(ans === trueAnswer) {
            setPoints(prev => prev + 1);
-           setAnswerLetter(ans);
        }
    }
 
@@ -31,25 +31,25 @@ export default function Quizz() {
                 <Button
                     onClick={() => answer('a')}
                     className="w-[100%] md:w-1/2 h-1/4 md:h-1/2 text-base md:text-lg"
-                    variant={}>
+                    variant={answered ? answerLetter === "a" ? trueAnswer === "a" ? "secondary" : "destructive" : "ghost" : "outline"}>
                     Answer A
                 </Button>
                 <Button
                     onClick={() => answer('b')}
                     className="w-[100%] md:w-1/2 h-1/4 md:h-1/2 text-base md:text-lg"
-                    variant="outline">
+                    variant={answered ? answerLetter === "b" ? trueAnswer === "b" ? "secondary" : "destructive" : "ghost" : "outline"}>
                     Answer B
                 </Button>
                 <Button
                     onClick={() => answer('c')}
                     className="w-[100%] md:w-1/2 h-1/4 md:h-1/2 text-base md:text-lg"
-                    variant="outline">
+                    variant={answered ? answerLetter === "c" ? trueAnswer === "c" ? "secondary" : "destructive" : "ghost" : "outline"}>
                     Answer C
                 </Button>
                 <Button
                     onClick={() => answer('d')}
                     className="w-[100%] md:w-1/2 h-1/4 md:h-1/2 text-base md:text-lg"
-                    variant="outline">
+                    variant={answered ? answerLetter === "d" ? trueAnswer === "d" ? "secondary" : "destructive" : "ghost" : "outline"}>
                     Answer D
                 </Button>
             </div>
