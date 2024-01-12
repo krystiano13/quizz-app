@@ -58,6 +58,10 @@ export default function Quizz() {
             .then(res => res.json())
             .then(data => {
                 setQuestions(data.result);
+                if(data.result.length < 1) {
+                    navigate('/');
+                    return;
+                }
             })
             .then(() => setLoaded(true))
     }, []);
