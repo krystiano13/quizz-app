@@ -675,6 +675,10 @@ body {
   margin-top: 1.5rem;
 }
 
+.mt-20 {
+  margin-top: 5rem;
+}
+
 .box-border {
   box-sizing: border-box;
 }
@@ -861,6 +865,10 @@ body {
 
 .w-full {
   width: 100%;
+}
+
+.w-1\/5 {
+  width: 20%;
 }
 
 .min-w-\[12rem\] {
@@ -1057,6 +1065,10 @@ body {
   padding: 1.5rem;
 }
 
+.p-20 {
+  padding: 5rem;
+}
+
 .px-2 {
   padding-left: 0.5rem;
   padding-right: 0.5rem;
@@ -1177,6 +1189,11 @@ body {
 .text-xs {
   font-size: 0.75rem;
   line-height: 1rem;
+}
+
+.text-5xl {
+  font-size: 3rem;
+  line-height: 1;
 }
 
 .font-bold {
