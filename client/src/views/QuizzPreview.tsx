@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { useSearchParams, useNavigate } from "react-router-dom";
+import { useSearchParams, useNavigate, NavLink } from "react-router-dom";
 import Cookies from 'universal-cookie';
 
 // components
 import { Card, CardHeader, CardContent, CardTitle, CardDescription } from '../components/ui/card';
 import { Button } from '../components/ui/button';
 import { Separator } from '../components/ui/separator';
-import { Loader } from '../components/Loader/Loader';
 
 interface Info {
     id: number,
@@ -156,7 +155,9 @@ export default function QuizzPreview() {
                             }
                         </section>
                     }
-                    <Button>Start Quizz</Button>
+                    <NavLink to={`/quizz?id=${info.id}`}>
+                        <Button>Start Quizz</Button>
+                    </NavLink>
                 </CardContent>
             </Card>
         </main>

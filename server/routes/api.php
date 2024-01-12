@@ -26,8 +26,8 @@ Route::middleware('auth:sanctum') -> post('/profile/rateQuizz', [ProfileControll
 Route::middleware('auth:sanctum') -> post('/profile/edit', [ProfileController::class, 'editDescription']);
 
 //Auth
-Route::middleware('auth:sanctum') -> post('/auth/register', [UserController::class, 'register']);
-Route::middleware('auth:sanctum') -> post('/auth/login', [UserController::class, 'login']);
+Route::post('/auth/register', [UserController::class, 'register']);
+Route::post('/auth/login', [UserController::class, 'login']);
 
 //Quizz API routes
 Route::get('/quizz/id/{id}', [QuizzController::class, 'getById']);

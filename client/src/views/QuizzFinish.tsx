@@ -1,4 +1,5 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 
 //components
 import { Separator } from '../components/ui/separator';
@@ -19,7 +20,9 @@ export default function QuizzFinish() {
                 {" "}B
                 </span>
             </h2>
-            <Button className="w-3/5 md:w-1/5 mt-6">Go Back</Button>
+            <NavLink to="/">
+                <Button className="w-3/5 md:w-1/5 mt-6">Go Back</Button>
+            </NavLink>
         </main>
     )
 }
