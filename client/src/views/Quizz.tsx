@@ -51,7 +51,6 @@ export default function Quizz() {
            else {
                const score = Math.round(pointsRef.current / questions.length * 100);
                let rank = "";
-               alert(score);
 
                if(score < 25) {
                    rank = "E";
