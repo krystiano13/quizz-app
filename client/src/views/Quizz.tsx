@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate, useSearchParams } from "react-router-dom";
 
 // components
@@ -27,6 +27,12 @@ export default function Quizz() {
     const [loaded, setLoaded] = useState<boolean>(false);
     const navigate = useNavigate();
 
+    const pointsRef = useRef<number>(0);
+
+    useEffect(() => {
+        pointsRef.current = points;
+    }, [points]);
+
    function answer(ans:string) {
        if(answered) return;
        setAnswered(true);
@@ -43,7 +49,33 @@ export default function Quizz() {
                setAnswered(false);
            }
            else {
-               navigate('/');
+               const score = Math.round(pointsRef.current / questions.length * 100);
+               let rank = "";
+               alert(score);
+
+               if(score < 25) {
+                   rank = "E";
+               }
+               else if(score >= 25 && score < 50) {
+                   rank = "D";
+               }
+               else if(score >= 50 && score < 60) {
+                   rank = "C";
+               }
+               else if(score >= 60 && score < 70) {
+                   rank = "B";
+               }
+               else if(score >= 70 && score < 80) {
+                   rank = "A";
+               }
+               else if(score >= 80 && score < 90) {
+                   rank = "S";
+               }
+               else if(score >= 90 && score <= 100) {
+                   rank = "S+";
+               }
+
+               navigate(`/quizzfinish?rank=${rank}&score=${score}`);
            }
        }, 1000);
    }
