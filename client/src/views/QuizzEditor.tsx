@@ -8,22 +8,22 @@ import { Button } from "../components/ui/button";
 
 export default function QuizzEditor() {
     return (
-        <main className="side-anim theme-rose w-[100vw] h-[100vh] flex justify-evenly items-center">
-            <Card className="w-[30%] h-[80%]" id="titleSection">
-                <form className="w-full h-full flex flex-col items-center justify-center gap-6">
+        <main className="side-anim theme-rose w-[100vw] h-[100vh] flex flex-col lg:flex-row justify-evenly items-center">
+            <Card className="lg:w-[30%] w-[90%] lg:h-[80%] h-[38%]" id="titleSection">
+                <form className="w-full h-full flex flex-col items-center justify-center gap-3 lg:gap-6">
                     <Input
-                        className="w-[90%] text-xl text-center"
+                        className="w-[90%] lg:text-xl text-base text-center"
                         placeholder="title"
                         name="title"
                         required
                     />
-                    <p className="text-xl font-semibold">Questions count : 0</p>
-                    <Button className="max-w-[90%] w-3/5 text-lg">Save Quizz</Button>
-                    <Button className="max-w-[90%] w-3/5 text-lg">Hide Quizz</Button>
-                    <Button className="max-w-[90%] w-3/5 text-lg">Delete Quizz</Button>
+                    <p className="lg:text-xl text-base font-semibold">Questions count : 0</p>
+                    <Button size="sm" className="max-w-[90%] w-3/5 text-sm lg:text-lg">Save Quizz</Button>
+                    <Button size="sm" className="max-w-[90%] w-3/5 text-sm lg:text-lg">Hide Quizz</Button>
+                    <Button size="sm" className="max-w-[90%] w-3/5 text-sm lg:text-lg">Delete Quizz</Button>
                 </form>
             </Card>
-            <Card className="w-[60%] h-[80%] flex flex-col gap-6 items-center p-4 overflow-y-auto" id="questions">
+            <Card className="lg:w-[60%] lg:h-[80%] w-[90%] h-[40%] flex flex-col gap-6 items-center p-4 overflow-y-auto" id="questions">
                 <Button variant="secondary" className="flex justify-between p-2 w-4/5 text-xl">
                     Question 1
                     <section className="flex gap-3">
