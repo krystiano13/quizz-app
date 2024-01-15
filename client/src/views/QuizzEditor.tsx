@@ -1,16 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 //components
 import { Card } from "../components/ui/card";
 import { Input } from "../components/ui/input";
-import { Textarea } from "../components/ui/textarea";
 import { Button } from "../components/ui/button";
 import { EditorForm } from "../components/QuizzEditor/EditorForm";
 
 export default function QuizzEditor() {
+    const [formShown, setFormShown] = useState<boolean>(false);
     return (
         <>
-            <EditorForm />
+            {
+                formShown && <EditorForm />
+            }
             <main
                 className="side-anim theme-rose w-[100vw] h-[100vh] flex flex-col lg:flex-row justify-evenly items-center">
                 <Card className="lg:w-[30%] w-[90%] lg:h-[80%] h-[38%]" id="titleSection">
@@ -44,7 +46,11 @@ export default function QuizzEditor() {
                             <Button className="h-[70%]" variant="destructive">Delete</Button>
                         </section>
                     </Button>
-                    <Button className="w-4/5 text-xl">+</Button>
+                    <Button
+                        onClick={() => setFormShown(prev => !prev)}
+                        className="w-4/5 text-xl">
+                        +
+                    </Button>
                 </Card>
             </main>
         </>
