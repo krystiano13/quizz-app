@@ -24,18 +24,18 @@ export default function QuizzEditor() {
                 </form>
             </Card>
             <Card className="lg:w-[60%] lg:h-[80%] w-[90%] h-[40%] flex flex-col gap-6 items-center p-4 overflow-y-auto" id="questions">
-                <Button variant="secondary" className="flex justify-between p-2 w-4/5 text-xl">
-                    Question 1
+                <Button variant="secondary" className="flex justify-between p-2 w-[90%] lg:w-4/5 text-xl">
+                    <span className="text-base lg:text-lg">Question 1</span>
                     <section className="flex gap-3">
-                        <Button>Edit</Button>
-                        <Button variant="destructive">Delete</Button>
+                        <Button className="h-[70%]">Edit</Button>
+                        <Button className="h-[70%]" variant="destructive">Delete</Button>
                     </section>
                 </Button>
-                <Button variant="secondary" className="flex justify-between p-2 w-4/5 text-xl">
-                    Question 2
+                <Button variant="secondary" className="flex justify-between p-2 w-[90%] lg:w-4/5 text-xl">
+                    <span className="text-base lg:text-lg">Question 2</span>
                     <section className="flex gap-3">
-                        <Button>Edit</Button>
-                        <Button variant="destructive">Delete</Button>
+                        <Button className="h-[70%]">Edit</Button>
+                        <Button className="h-[70%]" variant="destructive">Delete</Button>
                     </section>
                 </Button>
                 <Button className="w-4/5 text-xl">+</Button>
