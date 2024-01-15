@@ -10,6 +10,20 @@
   animation: sideAppear 325ms;
 }
 
+.op-anim {
+  animation: opacityAppear 325ms;
+}
+
+@keyframes opacityAppear {
+  from {
+    opacity : 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
 @keyframes formAppear {
   from {
     opacity : 0;
