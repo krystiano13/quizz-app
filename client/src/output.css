@@ -1101,6 +1101,15 @@ body {
   background-color: rgb(228 228 231 / var(--tw-bg-opacity));
 }
 
+.bg-black {
+  --tw-bg-opacity: 1;
+  background-color: rgb(0 0 0 / var(--tw-bg-opacity));
+}
+
+.bg-opacity-40 {
+  --tw-bg-opacity: 0.4;
+}
+
 .fill-current {
   fill: currentColor;
 }
