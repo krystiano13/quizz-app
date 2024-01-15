@@ -12,6 +12,7 @@ const AboutEdit = lazy(() => import('./views/AboutEdit'));
 const Quizz = lazy(() => import('./views/Quizz'));
 const QuizzPreview = lazy(() => import('./views/QuizzPreview'));
 const QuizzFinish = lazy(() => import('./views/QuizzFinish'));
+const QuizzEditor = lazy(() => import('./views/QuizzEditor'));
 
 //components
 import { Loader } from './components/Loader/Loader';
@@ -65,6 +66,9 @@ export function Root() {
                 </Suspense>} />
                 <Route path='/quizzfinish' element={<Suspense fallback={<Loader />}>
                     <QuizzFinish />
+                </Suspense>} />
+                <Route path='/quizzeditor' element={<Suspense fallback={<Loader />}>
+                    <QuizzEditor />
                 </Suspense>} />
             </Routes>
         </BrowserRouter>
