@@ -1,4 +1,4 @@
-import React, {lazy, Suspense, useState, useEffect} from 'react';
+import React, { lazy, Suspense, useState, useEffect } from 'react';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Cookies from 'universal-cookie';
 
