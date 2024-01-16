@@ -22,7 +22,10 @@ class QuizzController extends Controller
     }
 
     public function getHighestRated(Request $req) {
-        $result = Quizz::orderByRaw('rating_sum / rates_count DESC') -> take(10) -> get();
+        $result = Quizz::where('hidden', false)
+            -> orderByRaw('rating_sum / rates_count DESC')
+            -> take(10)
+            -> get();
 
         return response([
             'status' => true,
@@ -43,7 +46,9 @@ class QuizzController extends Controller
         }
 
         $text = $req -> get('search');
-        $result = Quizz::where('title','like','%'.$text.'%') -> get();
+        $result = Quizz::where('title','like','%'.$text.'%')
+            -> where('hidden', false)
+            -> get();
 
         return response([
             'status' => true,
@@ -52,7 +57,7 @@ class QuizzController extends Controller
     }
 
     public function getLatest() {
-        $result = Quizz::latest() -> take(10) -> get();
+        $result = Quizz::where('hidden', false) -> latest() -> take(10) -> get();
         return response([
             'status' => true,
             'result' => $result

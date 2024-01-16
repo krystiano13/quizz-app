@@ -35,7 +35,8 @@ class Quizz extends Model
         'author',
         'title',
         'rating_sum',
-        'rates_count'
+        'rates_count',
+        'hidden'
     ];
 
     /**
