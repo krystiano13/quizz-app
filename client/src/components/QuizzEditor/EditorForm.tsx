@@ -9,10 +9,11 @@ import { Card } from "../ui/card";
 
 interface Props {
     id: string,
+    index: number,
     addQuestion: (item:question) => void
 }
 
-export const EditorForm:React.FC<Props> = ({ id ,addQuestion }) => {
+export const EditorForm:React.FC<Props> = ({ id ,addQuestion, index }) => {
     const [trueAnswer, setTrueAnswer] = useState<string>("a");
 
     function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -24,12 +25,14 @@ export const EditorForm:React.FC<Props> = ({ id ,addQuestion }) => {
         // clientside
 
         addQuestion({
+            id: index,
             title: data.get("question") as string,
             answer_A: data.get("answer_a") as string,
             answer_B: data.get("answer_b") as string,
             answer_C: data.get("answer_c") as string,
             answer_D: data.get("answer_d") as string,
-            true_answer: trueAnswer as "a" | "b" | "c" | "d"
+            true_answer: trueAnswer as "a" | "b" | "c" | "d",
+            quizz_id: id as string
         });
 
         // serverside

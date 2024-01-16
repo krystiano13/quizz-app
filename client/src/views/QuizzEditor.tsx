@@ -10,12 +10,14 @@ import { EditorForm } from "../components/QuizzEditor/EditorForm";
 type modeValue = "edit" | "create";
 
 export type question = {
+    id: number;
     title: string;
     answer_A: string;
     answer_B: string;
     answer_C: string;
     answer_D: string;
     true_answer: "a" | "b" | "c" | "d";
+    quizz_id: string
 }
 
 export default function QuizzEditor() {
@@ -26,11 +28,19 @@ export default function QuizzEditor() {
     const [questions, setQuestions] = useState<question[]>([]);
     const navigate = useNavigate();
 
+    const [index, setIndex] = useState<number>(0);
+
     const addQuestion = (item:question) => {
         const arr: question[] = questions;
         arr.push(item);
         setQuestions(arr);
         setFormShown(false);
+        setIndex(prev => prev + 1);
+    }
+
+    const deleteQuestion = (index:number) => {
+        const arr: question[] = questions;
+        setQuestions(arr.filter(item => item.id !== index));
     }
 
     useEffect(() => {
@@ -55,7 +65,12 @@ export default function QuizzEditor() {
     return (
         <>
             {
-                formShown && <EditorForm id={id} addQuestion={addQuestion} />
+                formShown &&
+                <EditorForm
+                    id={id}
+                    index={index}
+                    addQuestion={addQuestion}
+                />
             }
             <main
                 className="side-anim theme-rose w-[100vw] h-[100vh] flex flex-col lg:flex-row justify-evenly items-center">
@@ -93,7 +108,11 @@ export default function QuizzEditor() {
                                 <span className="text-base lg:text-lg">{ item.title }</span>
                                 <section className="flex gap-3">
                                     <Button className="h-[70%]">Edit</Button>
-                                    <Button className="h-[70%]" variant="destructive">Delete</Button>
+                                    <Button
+                                        id={item.id.toString()}
+                                        onClick={() => deleteQuestion(item.id)}
+                                        className="h-[70%]"
+                                        variant="destructive">Delete</Button>
                                 </section>
                             </Button>
                         ))
