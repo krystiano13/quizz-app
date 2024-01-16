@@ -22,6 +22,7 @@ export type question = {
 
 export default function QuizzEditor() {
     const [formShown, setFormShown] = useState<boolean>(false);
+    const [formMode, setFormMode] = useState<modeValue>("create");
     const [mode, setMode] = useState<modeValue>("create");
     const [id, setId] = useState<string>("");
     const [searchParams, setSearchParams] = useSearchParams();
@@ -29,6 +30,7 @@ export default function QuizzEditor() {
     const navigate = useNavigate();
 
     const [index, setIndex] = useState<number>(0);
+    const [editIndex, setEditIndex] = useState<number>(0);
 
     const addQuestion = (item:question) => {
         const arr: question[] = questions;
@@ -39,8 +41,20 @@ export default function QuizzEditor() {
     }
 
     const deleteQuestion = (index:number) => {
+        // clientside
         const arr: question[] = questions;
         setQuestions(arr.filter(item => item.id !== index));
+
+        // serverSide
+    }
+
+    const editQuestion = (item:question) => {
+        const arr: question[] = questions;
+        const arrIndex: number = arr.findIndex(item => item.id === editIndex);
+
+        arr[arrIndex] = item;
+        setQuestions(arr);
+        setFormShown(false);
     }
 
     useEffect(() => {
@@ -70,6 +84,9 @@ export default function QuizzEditor() {
                     id={id}
                     index={index}
                     addQuestion={addQuestion}
+                    editQuestion={editQuestion}
+                    editIndex={editIndex}
+                    formMode={formMode}
                 />
             }
             <main
@@ -107,7 +124,11 @@ export default function QuizzEditor() {
                             <Button variant="secondary" className="flex justify-between p-2 w-[90%] lg:w-4/5 text-xl">
                                 <span className="text-base lg:text-lg">{ item.title }</span>
                                 <section className="flex gap-3">
-                                    <Button className="h-[70%]">Edit</Button>
+                                    <Button onClick={() => {
+                                        setFormMode("edit");
+                                        setEditIndex(item.id)
+                                        setFormShown(true);
+                                    }} className="h-[70%]">Edit</Button>
                                     <Button
                                         id={item.id.toString()}
                                         onClick={() => deleteQuestion(item.id)}
@@ -118,7 +139,10 @@ export default function QuizzEditor() {
                         ))
                     }
                     <Button
-                        onClick={() => setFormShown(prev => !prev)}
+                        onClick={() => {
+                            setFormShown(prev => !prev);
+                            setFormMode("create");
+                        }}
                         className="w-4/5 text-xl">
                         +
                     </Button>

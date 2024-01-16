@@ -10,10 +10,13 @@ import { Card } from "../ui/card";
 interface Props {
     id: string,
     index: number,
-    addQuestion: (item:question) => void
+    editIndex: number,
+    addQuestion: (item:question) => void,
+    editQuestion: (item:question) => void,
+    formMode: "create" | "edit"
 }
 
-export const EditorForm:React.FC<Props> = ({ id ,addQuestion, index }) => {
+export const EditorForm:React.FC<Props> = ({ id ,editIndex,addQuestion, index, formMode, editQuestion }) => {
     const [trueAnswer, setTrueAnswer] = useState<string>("a");
 
     function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -24,16 +27,30 @@ export const EditorForm:React.FC<Props> = ({ id ,addQuestion, index }) => {
 
         // clientside
 
-        addQuestion({
-            id: index,
-            title: data.get("question") as string,
-            answer_A: data.get("answer_a") as string,
-            answer_B: data.get("answer_b") as string,
-            answer_C: data.get("answer_c") as string,
-            answer_D: data.get("answer_d") as string,
-            true_answer: trueAnswer as "a" | "b" | "c" | "d",
-            quizz_id: id as string
-        });
+        if(formMode === "create") {
+            addQuestion({
+                id: index,
+                title: data.get("question") as string,
+                answer_A: data.get("answer_a") as string,
+                answer_B: data.get("answer_b") as string,
+                answer_C: data.get("answer_c") as string,
+                answer_D: data.get("answer_d") as string,
+                true_answer: trueAnswer as "a" | "b" | "c" | "d",
+                quizz_id: id as string
+            });
+        }
+        else {
+            editQuestion({
+                id: editIndex,
+                title: data.get("question") as string,
+                answer_A: data.get("answer_a") as string,
+                answer_B: data.get("answer_b") as string,
+                answer_C: data.get("answer_c") as string,
+                answer_D: data.get("answer_d") as string,
+                true_answer: trueAnswer as "a" | "b" | "c" | "d",
+                quizz_id: id as string
+            });
+        }
 
         // serverside
     }
