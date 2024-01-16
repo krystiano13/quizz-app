@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { NavLink, useSearchParams, useNavigate } from "react-router-dom";
 
 //components
 import { Card } from "../components/ui/card";
@@ -11,6 +12,22 @@ type modeValue = "edit" | "create";
 export default function QuizzEditor() {
     const [formShown, setFormShown] = useState<boolean>(false);
     const [mode, setMode] = useState<modeValue>("create");
+    const [searchParams, setSearchParams] = useSearchParams();
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if(!searchParams.get('mode')) {
+            navigate('/');
+            return;
+        }
+        else if(searchParams.get('mode') === "create") {
+            setMode("create");
+        }
+        else if(searchParams.get('mode') === "edit") {
+            setMode("edit");
+        }
+    }, []);
+
     return (
         <>
             {
@@ -36,7 +53,9 @@ export default function QuizzEditor() {
                         }
                         {
                             mode === "create" && <>
-                                <Button size="sm" className="max-w-[90%] w-3/5 text-sm lg:text-lg">Cancel</Button>
+                               <NavLink className="max-w-[90%] w-3/5" to="/">
+                                   <Button size="sm" className="w-full text-sm lg:text-lg">Cancel</Button>
+                               </NavLink>
                             </>
                         }
                     </form>
