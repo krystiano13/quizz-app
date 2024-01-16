@@ -20,12 +20,25 @@ export const EditorForm:React.FC<Props> = ({ id ,addQuestion }) => {
         const data = new FormData(e.target as HTMLFormElement);
         data.append("true_answer", trueAnswer);
         data.append("quizz_id", id);
+
+        // clientside
+
+        addQuestion({
+            title: data.get("question") as string,
+            answer_A: data.get("answer_a") as string,
+            answer_B: data.get("answer_b") as string,
+            answer_C: data.get("answer_c") as string,
+            answer_D: data.get("answer_d") as string,
+            true_answer: trueAnswer as "a" | "b" | "c" | "d"
+        });
+
+        // serverside
     }
 
     return (
         <div className="op-anim theme-rose fixed z-50 bg-black bg-opacity-60 w-[100vw] h-[100vh] flex items-center justify-center">
             <Card className="p-8 w-[85%] lg:w-[40%]">
-                <form className="flex flex-col items-center gap-4 w-full">
+                <form onSubmit={handleSubmit} className="flex flex-col items-center gap-4 w-full">
                     <Textarea name="question" required className="max-h-[10rem]" placeholder="question"></Textarea>
                     <section className="flex w-full">
                         <Input name="answer_a" required placeholder="Answer A"/>
