@@ -54,7 +54,9 @@ export const Navbar:React.FC<Props> = ({ isLogged, username, checkLogin }) => {
                        {
                            isLogged &&
                            <>
-                               <MenubarItem className="text-xs md:text-base">Create</MenubarItem>
+                               <NavLink to='/quizzeditor'>
+                                   <MenubarItem className="text-xs md:text-base">Create</MenubarItem>
+                               </NavLink>
                                <MenubarSeparator />
                                <MenubarItem className="text-xs md:text-base">Show</MenubarItem>
                            </>
