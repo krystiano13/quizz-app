@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { NavLink, useSearchParams, useNavigate } from "react-router-dom";
 
 //components
@@ -31,6 +31,22 @@ export default function QuizzEditor() {
 
     const [index, setIndex] = useState<number>(0);
     const [editIndex, setEditIndex] = useState<number>(0);
+    const [editData, setEditData] = useState<question>({
+        id: -1,
+        title: "",
+        answer_A: "suema",
+        answer_B: "",
+        answer_C: "",
+        answer_D: "",
+        true_answer: "a",
+        quizz_id: id
+    });
+
+    const editRef = useRef<question>(editData);
+
+    useEffect(() => {
+        editRef.current = editData;
+    }, [editData]);
 
     const addQuestion = (item:question) => {
         const arr: question[] = questions;
@@ -38,6 +54,7 @@ export default function QuizzEditor() {
         setQuestions(arr);
         setFormShown(false);
         setIndex(prev => prev + 1);
+        editRef.current = arr[arr.length - 1];
     }
 
     const deleteQuestion = (index:number) => {
@@ -51,8 +68,8 @@ export default function QuizzEditor() {
     const editQuestion = (item:question) => {
         const arr: question[] = questions;
         const arrIndex: number = arr.findIndex(item => item.id === editIndex);
-
         arr[arrIndex] = item;
+        editRef.current = arr[arrIndex];
         setQuestions(arr);
         setFormShown(false);
     }
@@ -86,6 +103,7 @@ export default function QuizzEditor() {
                     addQuestion={addQuestion}
                     editQuestion={editQuestion}
                     editIndex={editIndex}
+                    editData={editRef.current}
                     formMode={formMode}
                 />
             }

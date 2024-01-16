@@ -11,12 +11,13 @@ interface Props {
     id: string,
     index: number,
     editIndex: number,
+    editData: question,
     addQuestion: (item:question) => void,
     editQuestion: (item:question) => void,
     formMode: "create" | "edit"
 }
 
-export const EditorForm:React.FC<Props> = ({ id ,editIndex,addQuestion, index, formMode, editQuestion }) => {
+export const EditorForm:React.FC<Props> = ({ id ,editIndex,editData,addQuestion, index, formMode, editQuestion }) => {
     const [trueAnswer, setTrueAnswer] = useState<string>("a");
 
     function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -59,9 +60,9 @@ export const EditorForm:React.FC<Props> = ({ id ,editIndex,addQuestion, index, f
         <div className="op-anim theme-rose fixed z-50 bg-black bg-opacity-60 w-[100vw] h-[100vh] flex items-center justify-center">
             <Card className="p-8 w-[85%] lg:w-[40%]">
                 <form onSubmit={handleSubmit} className="flex flex-col items-center gap-4 w-full">
-                    <Textarea name="question" required className="max-h-[10rem]" placeholder="question"></Textarea>
+                    <Textarea defaultValue={editData.title} name="question" required className="max-h-[10rem]" placeholder="question"></Textarea>
                     <section className="flex w-full">
-                        <Input name="answer_a" required placeholder="Answer A"/>
+                        <Input defaultValue={editData.answer_A} name="answer_a" required placeholder="Answer A"/>
                         <Button
                             type="button"
                             onClick={() => setTrueAnswer("a")}
@@ -72,7 +73,7 @@ export const EditorForm:React.FC<Props> = ({ id ,editIndex,addQuestion, index, f
                         </Button>
                     </section>
                     <section className="flex w-full">
-                        <Input name="answer_b" required placeholder="Answer B"/>
+                        <Input defaultValue={editData.answer_B} name="answer_b" required placeholder="Answer B"/>
                         <Button
                             type="button"
                             onClick={() => setTrueAnswer("b")}
@@ -83,7 +84,7 @@ export const EditorForm:React.FC<Props> = ({ id ,editIndex,addQuestion, index, f
                         </Button>
                     </section>
                     <section className="flex w-full">
-                        <Input name="answer_c" required placeholder="Answer C"/>
+                        <Input defaultValue={editData.answer_C} name="answer_c" required placeholder="Answer C"/>
                         <Button
                             type="button"
                             onClick={() => setTrueAnswer("c")}
@@ -94,7 +95,7 @@ export const EditorForm:React.FC<Props> = ({ id ,editIndex,addQuestion, index, f
                         </Button>
                     </section>
                     <section className="flex w-full">
-                        <Input name="answer_d" required placeholder="Answer D"/>
+                        <Input defaultValue={editData.answer_D} name="answer_d" required placeholder="Answer D"/>
                         <Button
                             type="button"
                             onClick={() => setTrueAnswer("d")}
