@@ -18,12 +18,14 @@ interface Quizz {
 export function Home() {
     const [searchParams, setSearchParams] = useSearchParams();
     const [quizzes, setQuizzes] = useState<Quizz[]>([]);
+    const [edit, setEdit] = useState<boolean>(false);
     const cookies = new Cookies();
 
     useEffect(() => {
         let url:string = "";
         let method:string = "POST";
         const data = new FormData();
+        setEdit(false);
 
         if(searchParams.get('search')) {
             method = "POST";
@@ -33,6 +35,11 @@ export function Home() {
         else if(searchParams.get('highestRated')) {
             method = "GET";
             url = "http://127.0.0.1:8000/api/quizz/highestRated";
+        }
+        else if(searchParams.get('quizztoedit') && cookies.get('quizzapp_token')) {
+            method = "GET";
+            setEdit(true);
+            url = `http://127.0.0.1:8000/api/quizz/user/${cookies.get("quizzapp_username")}`;
         }
         else {
             method = "GET";
@@ -64,7 +71,7 @@ export function Home() {
        <main className="flex flex-wrap content-start h-[100vh] gap-3 pt-[5rem] pb-3 pl-3 pr-3">
            {
                quizzes.map(item => (
-                   <NavLink to={`/quizzpreview?id=${item.id}`}>
+                   <NavLink to={edit ? `/quizzeditor?mode=edit&id=${item.id}` : `/quizzpreview?id=${item.id}`}>
                        <QuizzCard
                            key={item.id}
                            author={item.author}
