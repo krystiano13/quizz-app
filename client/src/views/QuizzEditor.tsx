@@ -9,11 +9,29 @@ import { EditorForm } from "../components/QuizzEditor/EditorForm";
 
 type modeValue = "edit" | "create";
 
+export type question = {
+    id: number,
+    title: string;
+    answer_A: string;
+    answer_B: string;
+    answer_C: string;
+    answer_D: string;
+    true_answer: "a" | "b" | "c" | "d";
+}
+
 export default function QuizzEditor() {
     const [formShown, setFormShown] = useState<boolean>(false);
     const [mode, setMode] = useState<modeValue>("create");
+    const [id, setId] = useState<string>("");
     const [searchParams, setSearchParams] = useSearchParams();
+    const [questions, setQuestions] = useState<question[]>([]);
     const navigate = useNavigate();
+
+    const addQuestion = (item:question) => {
+        const arr: question[] = questions;
+        arr.push(item);
+        setQuestions(arr);
+    }
 
     useEffect(() => {
         if(!searchParams.get('mode')) {
@@ -25,13 +43,19 @@ export default function QuizzEditor() {
         }
         else if(searchParams.get('mode') === "edit") {
             setMode("edit");
+            if(!searchParams.get("id")) {
+                navigate('/');
+                return;
+            }
+            setId(searchParams.get("id") as string);
         }
+
     }, []);
 
     return (
         <>
             {
-                formShown && <EditorForm />
+                formShown && <EditorForm id={id} addQuestion={addQuestion} />
             }
             <main
                 className="side-anim theme-rose w-[100vw] h-[100vh] flex flex-col lg:flex-row justify-evenly items-center">
