@@ -6,8 +6,11 @@ import { Input } from "../components/ui/input";
 import { Button } from "../components/ui/button";
 import { EditorForm } from "../components/QuizzEditor/EditorForm";
 
+type modeValue = "edit" | "create";
+
 export default function QuizzEditor() {
     const [formShown, setFormShown] = useState<boolean>(false);
+    const [mode, setMode] = useState<modeValue>("create");
     return (
         <>
             {
@@ -25,8 +28,17 @@ export default function QuizzEditor() {
                         />
                         <p className="lg:text-xl text-base font-semibold">Questions count : 0</p>
                         <Button size="sm" className="max-w-[90%] w-3/5 text-sm lg:text-lg">Save Quizz</Button>
-                        <Button size="sm" className="max-w-[90%] w-3/5 text-sm lg:text-lg">Hide Quizz</Button>
-                        <Button size="sm" className="max-w-[90%] w-3/5 text-sm lg:text-lg">Delete Quizz</Button>
+                        {
+                            mode === "edit" && <>
+                                <Button size="sm" className="max-w-[90%] w-3/5 text-sm lg:text-lg">Hide Quizz</Button>
+                                <Button size="sm" className="max-w-[90%] w-3/5 text-sm lg:text-lg">Delete Quizz</Button>
+                            </>
+                        }
+                        {
+                            mode === "create" && <>
+                                <Button size="sm" className="max-w-[90%] w-3/5 text-sm lg:text-lg">Cancel</Button>
+                            </>
+                        }
                     </form>
                 </Card>
                 <Card
