@@ -87,6 +87,8 @@ export default function QuizzEditor() {
         data.append('description', "quizz");
         setPending(true);
 
+        let id:number;
+
         // create quizz record
         fetch(`http://127.0.0.1:8000/api/quizz/add`, {
             method: "POST",
@@ -96,7 +98,9 @@ export default function QuizzEditor() {
             },
         })
             .then(res => res.json())
-            .then(data => console.log(data))
+            .then(data => {
+                id = data.id
+            })
             .then(() => {
                 for(let i=0; i<questions.length; i++) {
                     const formData = new FormData();
@@ -105,7 +109,7 @@ export default function QuizzEditor() {
                     formData.append('answer_c', questions[i].answer_C);
                     formData.append('answer_d', questions[i].answer_D);
                     formData.append('true_answer', questions[i].true_answer);
-                    formData.append('quizz_id', questions[i].quizz_id);
+                    formData.append('quizz_id', id.toString());
                     formData.append('question', questions[i].title);
 
                     fetch(`http://127.0.0.1:8000/api/question/create`, {
@@ -115,7 +119,8 @@ export default function QuizzEditor() {
                             Authorization: `Bearer ${cookies.get('quizzapp_token')}`
                         },
                     })
-                        .then(res => res.json());
+                        .then(res => res.json())
+                        .then(data => console.log(data));
                 }
 
                 setPending(false);

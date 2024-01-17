@@ -86,7 +86,7 @@ class QuizzController extends Controller
             ], 403);
         }
 
-        Quizz::create([
+        $quizz = Quizz::create([
             'title' => $req -> get('title'),
             'description' => $req -> get('description'),
             'author' => $req -> get('username'),
@@ -97,7 +97,8 @@ class QuizzController extends Controller
 
         return response([
             'status' => true,
-            'message' => 'Created'
+            'message' => 'Created',
+            'id' => $quizz['id']
         ], 200);
     }
 
