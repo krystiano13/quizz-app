@@ -47,6 +47,7 @@ export default function QuizzEditor() {
     const editRef = useRef<question>(editData);
     const cookies = new Cookies();
     const [pending, setPending] = useState<boolean>(false);
+    const [title, setTitle] = useState<string>("");
 
     useEffect(() => {
         editRef.current = editData;
@@ -90,42 +91,48 @@ export default function QuizzEditor() {
         let id:number;
 
         // create quizz record
-        fetch(`http://127.0.0.1:8000/api/quizz/add`, {
-            method: "POST",
-            body: data,
-            headers: {
-                Authorization: `Bearer ${cookies.get('quizzapp_token')}`
-            },
-        })
-            .then(res => res.json())
-            .then(data => {
-                id = data.id
+        if(mode === "create") {
+            fetch(`http://127.0.0.1:8000/api/quizz/add`, {
+                method: "POST",
+                body: data,
+                headers: {
+                    Authorization: `Bearer ${cookies.get('quizzapp_token')}`
+                },
             })
-            .then(() => {
-                for(let i=0; i<questions.length; i++) {
-                    const formData = new FormData();
-                    formData.append('answer_a', questions[i].answer_A);
-                    formData.append('answer_b', questions[i].answer_B);
-                    formData.append('answer_c', questions[i].answer_C);
-                    formData.append('answer_d', questions[i].answer_D);
-                    formData.append('true_answer', questions[i].true_answer);
-                    formData.append('quizz_id', id.toString());
-                    formData.append('question', questions[i].title);
+                .then(res => res.json())
+                .then(data => {
+                    id = data.id
+                })
+                .then(() => {
+                    for(let i=0; i<questions.length; i++) {
+                        const formData = new FormData();
+                        formData.append('answer_a', questions[i].answer_A);
+                        formData.append('answer_b', questions[i].answer_B);
+                        formData.append('answer_c', questions[i].answer_C);
+                        formData.append('answer_d', questions[i].answer_D);
+                        formData.append('true_answer', questions[i].true_answer);
+                        formData.append('quizz_id', id.toString());
+                        formData.append('question', questions[i].title);
 
-                    fetch(`http://127.0.0.1:8000/api/question/create`, {
-                        method: "POST",
-                        body: formData,
-                        headers: {
-                            Authorization: `Bearer ${cookies.get('quizzapp_token')}`
-                        },
-                    })
-                        .then(res => res.json())
-                        .then(data => console.log(data));
-                }
+                        fetch(`http://127.0.0.1:8000/api/question/create`, {
+                            method: "POST",
+                            body: formData,
+                            headers: {
+                                Authorization: `Bearer ${cookies.get('quizzapp_token')}`
+                            },
+                        })
+                            .then(res => res.json())
+                            .then(data => console.log(data));
+                    }
 
-                setPending(false);
-                navigate('/?quizztoedit=1');
-            })
+                    setPending(false);
+                    navigate('/?quizztoedit=1');
+                })
+        }
+        // edit quizz record
+        else if(mode === "edit") {
+
+        }
     }
 
     useEffect(() => {
@@ -143,6 +150,13 @@ export default function QuizzEditor() {
                 return;
             }
             setId(searchParams.get("id") as string);
+
+            fetch(`http://127.0.0.1:8000/api/quizz/id/${searchParams.get("id")}`)
+                .then(res => res.json())
+                .then(data => {
+                    console.log(data.result[0])
+                    setTitle(data.result[0].title)
+                })
         }
 
     }, []);
@@ -176,6 +190,7 @@ export default function QuizzEditor() {
                                     placeholder="title"
                                     name="title"
                                     required
+                                    defaultValue={title}
                                 />
                                 <p className="lg:text-xl text-base font-semibold">Questions count : 0</p>
                                 <Button size="sm" className="max-w-[90%] w-3/5 text-sm lg:text-lg">Save Quizz</Button>
