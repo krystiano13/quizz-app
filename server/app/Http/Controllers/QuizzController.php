@@ -89,7 +89,10 @@ class QuizzController extends Controller
         Quizz::create([
             'title' => $req -> get('title'),
             'description' => $req -> get('description'),
-            'author' => $req -> get('username')
+            'author' => $req -> get('username'),
+            'rating_sum' => 0,
+            'rates_count' => 0,
+            'hidden' => false,
         ]);
 
         return response([

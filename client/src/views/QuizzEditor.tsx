@@ -1,11 +1,13 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { NavLink, useSearchParams, useNavigate } from "react-router-dom";
+import Cookies from 'universal-cookie';
 
 //components
 import { Card } from "../components/ui/card";
 import { Input } from "../components/ui/input";
 import { Button } from "../components/ui/button";
 import { EditorForm } from "../components/QuizzEditor/EditorForm";
+import { Loader } from '../components/Loader/Loader';
 
 type modeValue = "edit" | "create";
 
@@ -43,6 +45,8 @@ export default function QuizzEditor() {
     });
 
     const editRef = useRef<question>(editData);
+    const cookies = new Cookies();
+    const [pending, setPending] = useState<boolean>(false);
 
     useEffect(() => {
         editRef.current = editData;
@@ -74,6 +78,51 @@ export default function QuizzEditor() {
         setFormShown(false);
     }
 
+    const saveQuizz = (e:React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        if(!cookies.get('quizzapp_token')) return;
+
+        const data = new FormData(e.target as HTMLFormElement);
+        data.append('username', cookies.get('quizzapp_username'));
+        data.append('description', "quizz");
+        setPending(true);
+
+        // create quizz record
+        fetch(`http://127.0.0.1:8000/api/quizz/add`, {
+            method: "POST",
+            body: data,
+            headers: {
+                Authorization: `Bearer ${cookies.get('quizzapp_token')}`
+            },
+        })
+            .then(res => res.json())
+            .then(data => console.log(data))
+            .then(() => {
+                for(let i=0; i<questions.length; i++) {
+                    const formData = new FormData();
+                    formData.append('answer_a', questions[i].answer_A);
+                    formData.append('answer_b', questions[i].answer_B);
+                    formData.append('answer_c', questions[i].answer_C);
+                    formData.append('answer_d', questions[i].answer_D);
+                    formData.append('true_answer', questions[i].true_answer);
+                    formData.append('quizz_id', questions[i].quizz_id);
+                    formData.append('question', questions[i].title);
+
+                    fetch(`http://127.0.0.1:8000/api/question/create`, {
+                        method: "POST",
+                        body: formData,
+                        headers: {
+                            Authorization: `Bearer ${cookies.get('quizzapp_token')}`
+                        },
+                    })
+                        .then(res => res.json());
+                }
+
+                setPending(false);
+                navigate('/?quizztoedit=1');
+            })
+    }
+
     useEffect(() => {
         if(!searchParams.get('mode')) {
             navigate('/');
@@ -96,76 +145,84 @@ export default function QuizzEditor() {
     return (
         <>
             {
-                formShown &&
-                <EditorForm
-                    id={id}
-                    index={index}
-                    addQuestion={addQuestion}
-                    editQuestion={editQuestion}
-                    editIndex={editIndex}
-                    editData={editRef.current}
-                    formMode={formMode}
-                />
+                pending && <Loader />
             }
-            <main
-                className="side-anim theme-rose w-[100vw] h-[100vh] flex flex-col lg:flex-row justify-evenly items-center">
-                <Card className="lg:w-[30%] w-[90%] lg:h-[80%] h-[38%]" id="titleSection">
-                    <form className="w-full h-full flex flex-col items-center justify-center gap-3 lg:gap-6">
-                        <Input
-                            className="w-[90%] lg:text-xl text-base text-center"
-                            placeholder="title"
-                            name="title"
-                            required
-                        />
-                        <p className="lg:text-xl text-base font-semibold">Questions count : 0</p>
-                        <Button size="sm" className="max-w-[90%] w-3/5 text-sm lg:text-lg">Save Quizz</Button>
-                        {
-                            mode === "edit" && <>
-                                <Button size="sm" className="max-w-[90%] w-3/5 text-sm lg:text-lg">Hide Quizz</Button>
-                                <Button size="sm" className="max-w-[90%] w-3/5 text-sm lg:text-lg">Delete Quizz</Button>
-                            </>
-                        }
-                        {
-                            mode === "create" && <>
-                               <NavLink className="max-w-[90%] w-3/5" to="/">
-                                   <Button size="sm" className="w-full text-sm lg:text-lg">Cancel</Button>
-                               </NavLink>
-                            </>
-                        }
-                    </form>
-                </Card>
-                <Card
-                    className="lg:w-[60%] lg:h-[80%] w-[90%] h-[40%] flex flex-col gap-6 items-center p-4 overflow-y-auto"
-                    id="questions">
+            {
+                !pending &&
+                <>
                     {
-                        questions.map(item => (
-                            <Button variant="secondary" className="flex justify-between p-2 w-[90%] lg:w-4/5 text-xl">
-                                <span className="text-base lg:text-lg">{ item.title }</span>
-                                <section className="flex gap-3">
-                                    <Button onClick={() => {
-                                        setFormMode("edit");
-                                        setEditIndex(item.id)
-                                        setFormShown(true);
-                                    }} className="h-[70%]">Edit</Button>
-                                    <Button
-                                        id={item.id.toString()}
-                                        onClick={() => deleteQuestion(item.id)}
-                                        className="h-[70%]"
-                                        variant="destructive">Delete</Button>
-                                </section>
-                            </Button>
-                        ))
+                        formShown &&
+                        <EditorForm
+                            id={id}
+                            index={index}
+                            addQuestion={addQuestion}
+                            editQuestion={editQuestion}
+                            editIndex={editIndex}
+                            editData={editRef.current}
+                            formMode={formMode}
+                        />
                     }
-                    <Button
-                        onClick={() => {
-                            setFormShown(prev => !prev);
-                            setFormMode("create");
-                        }}
-                        className="w-4/5 text-xl">
-                        +
-                    </Button>
-                </Card>
-            </main>
+                    <main
+                        className="side-anim theme-rose w-[100vw] h-[100vh] flex flex-col lg:flex-row justify-evenly items-center">
+                        <Card className="lg:w-[30%] w-[90%] lg:h-[80%] h-[38%]" id="titleSection">
+                            <form onSubmit={saveQuizz} className="w-full h-full flex flex-col items-center justify-center gap-3 lg:gap-6">
+                                <Input
+                                    className="w-[90%] lg:text-xl text-base text-center"
+                                    placeholder="title"
+                                    name="title"
+                                    required
+                                />
+                                <p className="lg:text-xl text-base font-semibold">Questions count : 0</p>
+                                <Button size="sm" className="max-w-[90%] w-3/5 text-sm lg:text-lg">Save Quizz</Button>
+                                {
+                                    mode === "edit" && <>
+                                        <Button size="sm" className="max-w-[90%] w-3/5 text-sm lg:text-lg">Hide Quizz</Button>
+                                        <Button size="sm" className="max-w-[90%] w-3/5 text-sm lg:text-lg">Delete Quizz</Button>
+                                    </>
+                                }
+                                {
+                                    mode === "create" && <>
+                                        <NavLink className="max-w-[90%] w-3/5" to="/">
+                                            <Button size="sm" className="w-full text-sm lg:text-lg">Cancel</Button>
+                                        </NavLink>
+                                    </>
+                                }
+                            </form>
+                        </Card>
+                        <Card
+                            className="lg:w-[60%] lg:h-[80%] w-[90%] h-[40%] flex flex-col gap-6 items-center p-4 overflow-y-auto"
+                            id="questions">
+                            {
+                                questions.map(item => (
+                                    <Button variant="secondary" className="flex justify-between p-2 w-[90%] lg:w-4/5 text-xl">
+                                        <span className="text-base lg:text-lg">{ item.title }</span>
+                                        <section className="flex gap-3">
+                                            <Button onClick={() => {
+                                                setFormMode("edit");
+                                                setEditIndex(item.id)
+                                                setFormShown(true);
+                                            }} className="h-[70%]">Edit</Button>
+                                            <Button
+                                                id={item.id.toString()}
+                                                onClick={() => deleteQuestion(item.id)}
+                                                className="h-[70%]"
+                                                variant="destructive">Delete</Button>
+                                        </section>
+                                    </Button>
+                                ))
+                            }
+                            <Button
+                                onClick={() => {
+                                    setFormShown(prev => !prev);
+                                    setFormMode("create");
+                                }}
+                                className="w-4/5 text-xl">
+                                +
+                            </Button>
+                        </Card>
+                    </main>
+                </>
+            }
         </>
     )
 }

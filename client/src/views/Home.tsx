@@ -76,7 +76,7 @@ export function Home() {
                            key={item.id}
                            author={item.author}
                            title={item.title}
-                           rate={(item.rating_sum / item.rates_count).toFixed(2)}
+                           rate={item.rates_count > 0 ? (Number(item.rating_sum) / Number(item.rates_count)).toFixed(2) : "0.00"}
                        />
                    </NavLink>
                ))

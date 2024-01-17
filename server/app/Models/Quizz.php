@@ -36,7 +36,8 @@ class Quizz extends Model
         'title',
         'rating_sum',
         'rates_count',
-        'hidden'
+        'hidden',
+        'description'
     ];
 
     /**
