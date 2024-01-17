@@ -31,7 +31,7 @@ export const EditorForm:React.FC<Props> = ({ id ,editIndex,editData,addQuestion,
         if(formMode === "create") {
             addQuestion({
                 id: index,
-                title: data.get("question") as string,
+                question: data.get("question") as string,
                 answer_A: data.get("answer_a") as string,
                 answer_B: data.get("answer_b") as string,
                 answer_C: data.get("answer_c") as string,
@@ -43,7 +43,7 @@ export const EditorForm:React.FC<Props> = ({ id ,editIndex,editData,addQuestion,
         else {
             editQuestion({
                 id: editIndex,
-                title: data.get("question") as string,
+                question: data.get("question") as string,
                 answer_A: data.get("answer_a") as string,
                 answer_B: data.get("answer_b") as string,
                 answer_C: data.get("answer_c") as string,
@@ -60,7 +60,7 @@ export const EditorForm:React.FC<Props> = ({ id ,editIndex,editData,addQuestion,
         <div className="op-anim theme-rose fixed z-50 bg-black bg-opacity-60 w-[100vw] h-[100vh] flex items-center justify-center">
             <Card className="p-8 w-[85%] lg:w-[40%]">
                 <form onSubmit={handleSubmit} className="flex flex-col items-center gap-4 w-full">
-                    <Textarea defaultValue={editData.title} name="question" required className="max-h-[10rem]" placeholder="question"></Textarea>
+                    <Textarea defaultValue={editData.question} name="question" required className="max-h-[10rem]" placeholder="question"></Textarea>
                     <section className="flex w-full">
                         <Input defaultValue={editData.answer_A} name="answer_a" required placeholder="Answer A"/>
                         <Button

@@ -13,7 +13,7 @@ type modeValue = "edit" | "create";
 
 export type question = {
     id: number;
-    title: string;
+    question: string;
     answer_A: string;
     answer_B: string;
     answer_C: string;
@@ -35,7 +35,7 @@ export default function QuizzEditor() {
     const [editIndex, setEditIndex] = useState<number>(0);
     const [editData, setEditData] = useState<question>({
         id: -1,
-        title: "",
+        question: "",
         answer_A: "suema",
         answer_B: "",
         answer_C: "",
@@ -51,7 +51,7 @@ export default function QuizzEditor() {
 
     useEffect(() => {
         editRef.current = editData;
-    }, [editData]);
+    }, [editData, editIndex]);
 
     const addQuestion = (item:question) => {
         const arr: question[] = questions;
@@ -112,7 +112,7 @@ export default function QuizzEditor() {
                         formData.append('answer_d', questions[i].answer_D);
                         formData.append('true_answer', questions[i].true_answer);
                         formData.append('quizz_id', id.toString());
-                        formData.append('question', questions[i].title);
+                        formData.append('question', questions[i].question);
 
                         fetch(`http://127.0.0.1:8000/api/question/create`, {
                             method: "POST",
@@ -156,6 +156,14 @@ export default function QuizzEditor() {
                 .then(data => {
                     console.log(data.result[0])
                     setTitle(data.result[0].title)
+                })
+                .then(() => {
+                    fetch(`http://127.0.0.1:8000/api/question/all/${searchParams.get("id")}`)
+                        .then(res => res.json())
+                        .then(data => {
+                            console.log(data.result);
+                            setQuestions(data.result);
+                        })
                 })
         }
 
@@ -215,7 +223,7 @@ export default function QuizzEditor() {
                             {
                                 questions.map(item => (
                                     <Button variant="secondary" className="flex justify-between p-2 w-[90%] lg:w-4/5 text-xl">
-                                        <span className="text-base lg:text-lg">{ item.title }</span>
+                                        <span className="text-base lg:text-lg">{ item.question }</span>
                                         <section className="flex gap-3">
                                             <Button onClick={() => {
                                                 setFormMode("edit");
