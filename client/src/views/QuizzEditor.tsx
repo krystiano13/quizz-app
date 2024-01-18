@@ -62,6 +62,7 @@ export default function QuizzEditor() {
         editRef.current = arr[arr.length - 1];
 
         if(mode === "edit") {
+            setPending(true);
             const formData = new FormData();
             formData.append('answer_a', item.answer_a);
             formData.append('answer_b', item.answer_b);
@@ -79,6 +80,9 @@ export default function QuizzEditor() {
                 },
             })
                 .then(res => res.json())
+                .then(() => {
+                    setPending(false);
+                })
         }
     }
 
@@ -90,6 +94,7 @@ export default function QuizzEditor() {
         // serverSide
 
         if(mode === "edit") {
+            setPending(true);
             const formData = new FormData();
             formData.append('id', index.toString());
             fetch('http://127.0.0.1:8000/api/question/delete', {
@@ -100,6 +105,9 @@ export default function QuizzEditor() {
                 },
             })
                 .then(res => res.json())
+                .then(() => {
+                    setPending(false);
+                })
         }
     }
 
