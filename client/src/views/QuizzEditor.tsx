@@ -88,6 +88,19 @@ export default function QuizzEditor() {
         setQuestions(arr.filter(item => item.id !== index));
 
         // serverSide
+
+        if(mode === "edit") {
+            const formData = new FormData();
+            formData.append('id', index.toString());
+            fetch('http://127.0.0.1:8000/api/question/delete', {
+                method: "POST",
+                body: formData,
+                headers: {
+                    Authorization: `Bearer ${cookies.get('quizzapp_token')}`
+                },
+            })
+                .then(res => res.json())
+        }
     }
 
     const editQuestion = (item:question) => {
