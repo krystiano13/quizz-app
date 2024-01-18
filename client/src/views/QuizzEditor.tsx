@@ -110,6 +110,30 @@ export default function QuizzEditor() {
         editRef.current = arr[arrIndex];
         setQuestions(arr);
         setFormShown(false);
+
+        if(mode === "edit") {
+            setPending(true);
+            const formData = new FormData();
+            formData.append('answer_a', item.answer_a);
+            formData.append('answer_b', item.answer_b);
+            formData.append('answer_c', item.answer_c);
+            formData.append('answer_d', item.answer_d);
+            formData.append('true_answer', item.true_answer);
+            formData.append('quizz_id', id.toString());
+            formData.append('question', item.question);
+
+            fetch(`http://127.0.0.1:8000/api/question/edit/${item.id}`, {
+                method: "POST",
+                body: formData,
+                headers: {
+                    Authorization: `Bearer ${cookies.get('quizzapp_token')}`
+                },
+            })
+                .then(res => res.json())
+                .then(() => {
+                    setPending(false);
+                })
+        }
     }
 
     const saveQuizz = (e:React.FormEvent<HTMLFormElement>) => {
@@ -181,7 +205,7 @@ export default function QuizzEditor() {
     }
 
     useEffect(() => {
-        if(!searchParams.get('mode')) {
+        if(!searchParams.get('mode') || !cookies.get('quizzapp_token')) {
             navigate('/');
             return;
         }
