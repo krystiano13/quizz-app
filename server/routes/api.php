@@ -14,6 +14,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 // Ratings
 Route::get('/ratings/{username}/{id}', [RatingController::class, 'getRating']);
+Route::get('/ratings/{id}', [RatingController::class, 'getAllQuizzRatings']);
 Route::middleware('auth:sanctum') -> post('/ratings/edit/{id}', [RatingController::class, 'editRating']);
 Route::middleware('auth:sanctum') -> post('/ratings/add', [RatingController::class, 'addRating']);
 

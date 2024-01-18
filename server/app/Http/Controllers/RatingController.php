@@ -8,6 +8,13 @@ use App\Models\Rating;
 
 class RatingController extends Controller
 {
+    public function getAllQuizzRatings(int $quizzId) {
+        $result = Rating::where('quizz_id', $quizzId) -> get();
+        return response([
+            'status' => true,
+            'result' => $result
+        ], 200);
+    }
 
     public function getRating(string $username, int $quizzId) {
         $result = Rating::where('username', $username)
