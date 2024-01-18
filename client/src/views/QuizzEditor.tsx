@@ -60,6 +60,26 @@ export default function QuizzEditor() {
         setFormShown(false);
         setIndex(prev => prev + 1);
         editRef.current = arr[arr.length - 1];
+
+        if(mode === "edit") {
+            const formData = new FormData();
+            formData.append('answer_a', item.answer_a);
+            formData.append('answer_b', item.answer_b);
+            formData.append('answer_c', item.answer_c);
+            formData.append('answer_d', item.answer_d);
+            formData.append('true_answer', item.true_answer);
+            formData.append('quizz_id', id.toString());
+            formData.append('question', item.question);
+
+            fetch(`http://127.0.0.1:8000/api/question/create`, {
+                method: "POST",
+                body: formData,
+                headers: {
+                    Authorization: `Bearer ${cookies.get('quizzapp_token')}`
+                },
+            })
+                .then(res => res.json())
+        }
     }
 
     const deleteQuestion = (index:number) => {
@@ -222,7 +242,7 @@ export default function QuizzEditor() {
                             id="questions">
                             {
                                 questions.map(item => (
-                                    <Button variant="secondary" className="flex justify-between p-2 w-[90%] lg:w-4/5 text-xl">
+                                    <Button id={item.id.toString()} variant="secondary" className="flex justify-between p-2 w-[90%] lg:w-4/5 text-xl">
                                         <span className="text-base lg:text-lg">{ item.question }</span>
                                         <section className="flex gap-3">
                                             <Button onClick={() => {
