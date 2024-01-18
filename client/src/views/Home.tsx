@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useSearchParams } from "react-router-dom";
 import { NavLink } from "react-router-dom";
 import Cookies from 'universal-cookie';
@@ -15,11 +15,23 @@ interface Quizz {
     title: string
 }
 
+interface Rating {
+    username: string,
+    rating_value: number
+}
+
 export function Home() {
     const [searchParams, setSearchParams] = useSearchParams();
     const [quizzes, setQuizzes] = useState<Quizz[]>([]);
     const [edit, setEdit] = useState<boolean>(false);
     const cookies = new Cookies();
+
+    const quizzesRef = useRef<Quizz[]>([]);
+    const [seed, setSeed] = useState(0);
+
+    useEffect(() => {
+        quizzesRef.current = quizzes;
+    }, [quizzes]);
 
     useEffect(() => {
         let url:string = "";
@@ -53,7 +65,24 @@ export function Home() {
             })
                 .then(res => res.json())
                 .then(data => {
-                    setQuizzes(prev => data.result);
+                    const result = data.result;
+                    result.forEach((item:Quizz) => {
+                        fetch(`http://127.0.0.1:8000/api/ratings/${item.id}`)
+                            .then(res => res.json())
+                            .then(dat => {
+                                console.log(dat);
+                                item.rates_count = dat.count;
+                                item.rating_sum = 0;
+                                dat.result.forEach((el:Rating) => {
+                                    item.rating_sum += el.rating_value;
+                                })
+                                console.log(result);
+                            })
+                            .then(() => {
+                                setQuizzes(prev => result);
+                                setSeed(Math.random());
+                            })
+                    })
                 })
         }
         else {
@@ -62,13 +91,30 @@ export function Home() {
             })
                 .then(res => res.json())
                 .then(data => {
-                    setQuizzes(prev => data.result);
+                    const result = data.result;
+                    result.forEach((item:Quizz) => {
+                        fetch(`http://127.0.0.1:8000/api/ratings/${item.id}`)
+                            .then(res => res.json())
+                            .then(dat => {
+                                console.log(dat);
+                                item.rates_count = dat.count;
+                                item.rating_sum = 0;
+                                dat.result.forEach((el:Rating) => {
+                                    item.rating_sum += el.rating_value;
+                                })
+                                console.log(result);
+                            })
+                            .then(() => {
+                                setQuizzes(prev => result);
+                                setSeed(Math.random());
+                            })
+                    })
                 })
         }
     }, [searchParams]);
 
     return (
-       <main className="flex flex-wrap content-start h-[100vh] gap-3 pt-[5rem] pb-3 pl-3 pr-3">
+       <main id={seed.toString()} className="flex flex-wrap content-start h-[100vh] gap-3 pt-[5rem] pb-3 pl-3 pr-3">
            {
                quizzes.map(item => (
                    <NavLink to={edit ? `/quizzeditor?mode=edit&id=${item.id}` : `/quizzpreview?id=${item.id}`}>

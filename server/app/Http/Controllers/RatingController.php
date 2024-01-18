@@ -12,7 +12,8 @@ class RatingController extends Controller
         $result = Rating::where('quizz_id', $quizzId) -> get();
         return response([
             'status' => true,
-            'result' => $result
+            'result' => $result,
+            'count' => $result -> count()
         ], 200);
     }
 

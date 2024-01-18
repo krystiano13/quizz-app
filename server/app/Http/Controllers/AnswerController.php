@@ -12,7 +12,8 @@ class AnswerController extends Controller
         $questions = Answer::where('quizz_id', $quizzId) -> get();
         return response([
             'status' => true,
-            'result' => $questions
+            'result' => $questions,
+            'count' => $questions -> count()
         ], 200);
     }
 
