@@ -38,6 +38,8 @@ Route::post('/quizz/search',[QuizzController::class, 'search']);
 Route::middleware('auth:sanctum') -> post('/quizz/delete/{id}', [QuizzController::class, 'deleteQuizz']);
 Route::middleware('auth:sanctum') -> post('/quizz/edit/{id}', [QuizzController::class, 'editQuizz']);
 Route::middleware('auth:sanctum') -> post('/quizz/add', [QuizzController::class, 'addQuizz']);
+Route::middleware('auth:sanctum') -> post('/quizz/hide/{id}', [QuizzController::class, 'hideQuizz']);
+Route::middleware('auth:sanctum') -> post('/quizz/show/{id}', [QuizzController::class, 'showQuizz']);
 
 //Questions API routes
 Route::get('/question/all/{quizzId}', [AnswerController::class, 'getAllQuestions']);
