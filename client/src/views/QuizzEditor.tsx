@@ -212,6 +212,27 @@ export default function QuizzEditor() {
         }
     }
 
+    const deleteQuizz = () => {
+        if(!cookies.get('quizzapp_token')) return;
+
+        const data = new FormData();
+        data.append('username', cookies.get('quizzapp_username'));
+        setPending(true);
+
+        fetch(`http://127.0.0.1:8000/api/quizz/delete/${id}`,{
+            method: "POST",
+            body: data,
+            headers: {
+                Authorization: `Bearer ${cookies.get('quizzapp_token')}`
+            },
+        })
+            .then(res => res.json())
+            .then(() => {
+                setPending(false);
+                navigate('/?quizztoedit=1');
+            })
+    }
+
     useEffect(() => {
         if(!searchParams.get('mode') || !cookies.get('quizzapp_token')) {
             navigate('/');
@@ -282,7 +303,7 @@ export default function QuizzEditor() {
                                 {
                                     mode === "edit" && <>
                                         <Button size="sm" className="max-w-[90%] w-3/5 text-sm lg:text-lg">Hide Quizz</Button>
-                                        <Button size="sm" className="max-w-[90%] w-3/5 text-sm lg:text-lg">Delete Quizz</Button>
+                                        <Button onClick={deleteQuizz} size="sm" className="max-w-[90%] w-3/5 text-sm lg:text-lg">Delete Quizz</Button>
                                     </>
                                 }
                                 {
