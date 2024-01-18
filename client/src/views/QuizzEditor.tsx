@@ -48,6 +48,7 @@ export default function QuizzEditor() {
     const cookies = new Cookies();
     const [pending, setPending] = useState<boolean>(false);
     const [title, setTitle] = useState<string>("");
+    const [hidden, setHidden] = useState<boolean>(false);
 
     useEffect(() => {
         editRef.current = editData;
@@ -233,6 +234,48 @@ export default function QuizzEditor() {
             })
     }
 
+    const hideQuizz = () => {
+        if(!cookies.get('quizzapp_token')) return;
+
+        const data = new FormData();
+        data.append('username', cookies.get('quizzapp_username'));
+        setPending(true);
+
+        fetch(`http://127.0.0.1:8000/api/quizz/hide/${id}`,{
+            method: "POST",
+            body: data,
+            headers: {
+                Authorization: `Bearer ${cookies.get('quizzapp_token')}`
+            },
+        })
+            .then(res => res.json())
+            .then(() => {
+                setPending(false);
+                navigate('/?quizztoedit=1');
+            })
+    }
+
+    const showQuizz = () => {
+        if(!cookies.get('quizzapp_token')) return;
+
+        const data = new FormData();
+        data.append('username', cookies.get('quizzapp_username'));
+        setPending(true);
+
+        fetch(`http://127.0.0.1:8000/api/quizz/show/${id}`,{
+            method: "POST",
+            body: data,
+            headers: {
+                Authorization: `Bearer ${cookies.get('quizzapp_token')}`
+            },
+        })
+            .then(res => res.json())
+            .then(() => {
+                setPending(false);
+                navigate('/?quizztoedit=1');
+            })
+    }
+
     useEffect(() => {
         if(!searchParams.get('mode') || !cookies.get('quizzapp_token')) {
             navigate('/');
@@ -254,6 +297,7 @@ export default function QuizzEditor() {
                 .then(data => {
                     console.log(data.result[0])
                     setTitle(data.result[0].title)
+                    setHidden(data.result[0].hidden)
                 })
                 .then(() => {
                     fetch(`http://127.0.0.1:8000/api/question/all/${searchParams.get("id")}`)
@@ -302,7 +346,7 @@ export default function QuizzEditor() {
                                 <Button size="sm" className="max-w-[90%] w-3/5 text-sm lg:text-lg">Save Quizz</Button>
                                 {
                                     mode === "edit" && <>
-                                        <Button size="sm" className="max-w-[90%] w-3/5 text-sm lg:text-lg">Hide Quizz</Button>
+                                        <Button onClick={hidden ? showQuizz : hideQuizz} size="sm" className="max-w-[90%] w-3/5 text-sm lg:text-lg">{ hidden ? "Show" : "Hide" } Quizz</Button>
                                         <Button onClick={deleteQuizz} size="sm" className="max-w-[90%] w-3/5 text-sm lg:text-lg">Delete Quizz</Button>
                                     </>
                                 }
