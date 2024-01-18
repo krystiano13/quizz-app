@@ -14,10 +14,10 @@ type modeValue = "edit" | "create";
 export type question = {
     id: number;
     question: string;
-    answer_A: string;
-    answer_B: string;
-    answer_C: string;
-    answer_D: string;
+    answer_a: string;
+    answer_b: string;
+    answer_c: string;
+    answer_d: string;
     true_answer: "a" | "b" | "c" | "d";
     quizz_id: string
 }
@@ -36,10 +36,10 @@ export default function QuizzEditor() {
     const [editData, setEditData] = useState<question>({
         id: -1,
         question: "",
-        answer_A: "suema",
-        answer_B: "",
-        answer_C: "",
-        answer_D: "",
+        answer_a: "suema",
+        answer_b: "",
+        answer_c: "",
+        answer_d: "",
         true_answer: "a",
         quizz_id: id
     });
@@ -106,10 +106,10 @@ export default function QuizzEditor() {
                 .then(() => {
                     for(let i=0; i<questions.length; i++) {
                         const formData = new FormData();
-                        formData.append('answer_a', questions[i].answer_A);
-                        formData.append('answer_b', questions[i].answer_B);
-                        formData.append('answer_c', questions[i].answer_C);
-                        formData.append('answer_d', questions[i].answer_D);
+                        formData.append('answer_a', questions[i].answer_a);
+                        formData.append('answer_b', questions[i].answer_b);
+                        formData.append('answer_c', questions[i].answer_c);
+                        formData.append('answer_d', questions[i].answer_d);
                         formData.append('true_answer', questions[i].true_answer);
                         formData.append('quizz_id', id.toString());
                         formData.append('question', questions[i].question);
@@ -229,6 +229,7 @@ export default function QuizzEditor() {
                                                 setFormMode("edit");
                                                 setEditIndex(item.id)
                                                 setFormShown(true);
+                                                editRef.current = item;
                                             }} className="h-[70%]">Edit</Button>
                                             <Button
                                                 id={item.id.toString()}
