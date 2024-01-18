@@ -121,7 +121,23 @@ export default function QuizzEditor() {
         data.append('description', "quizz");
         setPending(true);
 
-        let id:number;
+        if(mode === "edit") {
+            fetch(`http://127.0.0.1:8000/api/quizz/edit/${id}`, {
+                method: "POST",
+                body: data,
+                headers: {
+                    Authorization: `Bearer ${cookies.get('quizzapp_token')}`
+                },
+            })
+                .then(res => res.json())
+                .then(() => {
+                    setPending(false);
+                    navigate('/?quizztoedit=1');
+                })
+
+        }
+
+        let id1:number;
 
         // create quizz record
         if(mode === "create") {
@@ -134,7 +150,7 @@ export default function QuizzEditor() {
             })
                 .then(res => res.json())
                 .then(data => {
-                    id = data.id
+                    id1 = data.id
                 })
                 .then(() => {
                     for(let i=0; i<questions.length; i++) {
@@ -144,7 +160,7 @@ export default function QuizzEditor() {
                         formData.append('answer_c', questions[i].answer_c);
                         formData.append('answer_d', questions[i].answer_d);
                         formData.append('true_answer', questions[i].true_answer);
-                        formData.append('quizz_id', id.toString());
+                        formData.append('quizz_id', id1.toString());
                         formData.append('question', questions[i].question);
 
                         fetch(`http://127.0.0.1:8000/api/question/create`, {
@@ -161,10 +177,6 @@ export default function QuizzEditor() {
                     setPending(false);
                     navigate('/?quizztoedit=1');
                 })
-        }
-        // edit quizz record
-        else if(mode === "edit") {
-
         }
     }
 
