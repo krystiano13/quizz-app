@@ -21,6 +21,30 @@ class QuizzController extends Controller
         ], 200);
     }
 
+    public function hideQuizz(int $id, Request $req) {
+        $validation = Validator::make($req -> all(),[
+            'username' => 'required'
+        ]);
+
+        if($validation -> fails()) {
+            return response([
+                'status' => false,
+                'errors' => $validation -> errors()
+            ], 403);
+        }
+
+        Quizz::where('id', $id)
+            -> where('author', $req -> get('username'))
+            -> update([
+                'hidden' => true
+            ]);
+
+        return response([
+            'status' => true,
+            'message' => 'Hidden'
+        ], 200);
+    }
+
     public function getHighestRated(Request $req) {
         $result = Quizz::where('hidden', false)
             -> orderByRaw('rating_sum / rates_count DESC')
