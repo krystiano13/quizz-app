@@ -123,13 +123,12 @@ class ProfileController extends Controller
         $username = $request -> get('username');
         $profile = Profile::where('name', $username) -> latest() -> get("quizzes_solved");
 
-        Profile::where('name', $request -> get('name')) -> update([
-            'quizzes_solved' => $profile[0]['quizzes_solved'] + 1
-        ]);
+
 
         return response([
             'status' => true,
-            'message' => "Updated"
+            'message' => "Updated",
+            'profile' => $profile
         ], 200);
     }
 }

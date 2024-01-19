@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate, useSearchParams } from "react-router-dom";
+import Cookies from 'universal-cookie';
 
 // components
 import { Card } from '../components/ui/card';
@@ -28,6 +29,7 @@ export default function Quizz() {
     const navigate = useNavigate();
 
     const pointsRef = useRef<number>(0);
+    const cookies = new Cookies();
 
     useEffect(() => {
         pointsRef.current = points;
@@ -74,7 +76,22 @@ export default function Quizz() {
                    rank = "S+";
                }
 
-               navigate(`/quizzfinish?rank=${rank}&score=${score}`);
+               if(cookies.get('quizzapp_token')) {
+                   const data = new FormData();
+                   data.append('username', cookies.get('quizzapp_username'));
+                   fetch('http://127.0.0.1:8000/api/profile/solveQuizz',{
+                       method: "POST",
+                       headers: {
+                           Authorization: `Bearer ${cookies.get('quizzapp_token')}`
+                       },
+                       body: data
+                   }).then(res => res.json())
+                       .then(data => console.log(data))
+                       .finally(() => {
+                           navigate(`/quizzfinish?rank=${rank}&score=${score}`);
+                       })
+               }
+
            }
        }, 1000);
    }
