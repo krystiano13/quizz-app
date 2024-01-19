@@ -164,6 +164,9 @@ export default function QuizzEditor() {
             })
                 .then(res => res.json())
                 .then(() => {
+
+                })
+                .then(() => {
                     setPending(false);
                     navigate('/?quizztoedit=1');
                 })
@@ -206,10 +209,25 @@ export default function QuizzEditor() {
                             .then(res => res.json())
                             .then(data => console.log(data));
                     }
-
-                    setPending(false);
-                    navigate('/?quizztoedit=1');
                 })
+                .then(() => {
+                    if(cookies.get('quizzapp_token')) {
+                        const data = new FormData();
+                        data.append('username', cookies.get('quizzapp_username'));
+                        fetch('http://127.0.0.1:8000/api/profile/makeQuizz',{
+                            method: "POST",
+                            headers: {
+                                Authorization: `Bearer ${cookies.get('quizzapp_token')}`
+                            },
+                            body: data
+                        }).then(res => res.json())
+                            .finally(() => {
+                                setPending(false);
+                                navigate('/?quizztoedit=1');
+                            })
+                    }
+                })
+
         }
     }
 

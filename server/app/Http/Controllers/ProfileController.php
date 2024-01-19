@@ -70,9 +70,9 @@ class ProfileController extends Controller
 
         $username = $request -> get('username');
         $profile = Profile::where('name', $username) -> latest() -> get("quizzes_rated");
-        $count = $count = $profile[0]['quizzes_made'] + 1;
+        $count = $profile[0]['quizzes_made'] + 1;
 
-        Profile::where('name', $request -> get('name')) -> update([
+        Profile::where('name', $username) -> update([
             'quizzes_rated' => $count
         ]);
 
@@ -99,7 +99,7 @@ class ProfileController extends Controller
         $profile = Profile::where('name', $username) -> latest() -> get("quizzes_made");
         $count = $profile[0]['quizzes_made'] + 1;
 
-        Profile::where('name', $request -> get('name')) -> update([
+        Profile::where('name', $username) -> update([
             'quizzes_made' => $count
         ]);
 
