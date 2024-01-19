@@ -67,7 +67,22 @@ export default function QuizzPreview() {
                 body: data
             })
                 .then(res => res.json())
-                .then(() => setRateLoading(false))
+                .then(() => {
+                    if(cookies.get('quizzapp_token')) {
+                        const data = new FormData();
+                        data.append('username', cookies.get('quizzapp_username'));
+                        fetch('http://127.0.0.1:8000/api/profile/rateQuizz',{
+                            method: "POST",
+                            headers: {
+                                Authorization: `Bearer ${cookies.get('quizzapp_token')}`
+                            },
+                            body: data
+                        }).then(res => res.json())
+                            .finally(() => {
+                                setRateLoading(false)
+                            })
+                    }
+                })
         }
     }
 
