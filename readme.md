@@ -1,6 +1,12 @@
 # Quizz App
 ## About
-Coming soon
+Fullstack application that allows to create,
+solve and rate quizzes.
+### Features
+* User Authentication via Bearer Token
+* Saving user's stats
+* Rating other users quizzes
+* Quizz editor
 ## Tech Stack
 * React.js
 * Typescript
