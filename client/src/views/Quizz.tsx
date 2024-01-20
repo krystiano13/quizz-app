@@ -86,11 +86,9 @@ export default function Quizz() {
                        },
                        body: data
                    }).then(res => res.json())
-                       .then(data => console.log(data))
-                       .finally(() => {
-                           navigate(`/quizzfinish?rank=${rank}&score=${score}`);
-                       })
                }
+
+               navigate(`/quizzfinish?rank=${rank}&score=${score}`);
 
            }
        }, 1000);
