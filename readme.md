@@ -9,6 +9,7 @@ solve and rate quizzes.
 * Quizz editor
 ## Tech Stack
 * React.js
+* React Router
 * Typescript
 * HTML
 * TailwindCSS
